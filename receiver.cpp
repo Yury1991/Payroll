@@ -2,7 +2,7 @@
 
 Receiver::Receiver()
 {
-    percent = 0.015;
+
 }
 double Receiver::getProfit(){
     return profit;
@@ -15,69 +15,47 @@ double Receiver::getPercent(){
     return percent;
 }
 
-void Receiver::setPercent(double percent){
-    this->percent = percent;
-}
 double Receiver::calculateSalaryPercent(){
 
     salaryPercent = profit * 0.015;
-    if(workingDays ==calendarWorkingDays){
+    if(Receiver::getWorkingDays() == Receiver::getCalendarWorkingDays()){
         return salaryPercent;
     }
     else{
-        salaryPercent = (salaryPercent*workingDays)/calendarWorkingDays;
+        salaryPercent = (salaryPercent*Receiver::getWorkingDays())/Receiver::getCalendarWorkingDays();
         return salaryPercent;
     }
 }
 
-//Управление отработанными днями
-int Receiver::getWorkingDays(){
-    return workingDays;
-}
-void Receiver::setWorkingDays(int workingDays){
-    this->workingDays = workingDays;
-}
-
-//Управление календарными рабочими днями
-int Receiver::getCalendarWorkingDays(){
-    return calendarWorkingDays;
-}
-void Receiver::setCalendarWorkingDays(int calendarWorkingDays){
-    this->calendarWorkingDays = calendarWorkingDays;
-}
-
-double Receiver::getMinSalary(){
-    return minSalary;
-}
-void Receiver::setMinSalary(double minSalary){
-    this->minSalary = minSalary;
-}
-
 double Receiver::calculateTotalSalary(){
-
-    return minSalary + salaryPercent;
+    Receiver::setTotalSalary(Receiver::getMinSalary() + salaryPercent);
+    return getTotalSalary();
 }
 
 double Receiver::calculateMinSalary(){
         if(profit <= 2000000){
-            minSalary = 10000;
+            Receiver::setMinSalary(10000);
         }
         else if ((profit > 2000000) && (profit < 3000000)) {
-            minSalary = 150000;
+            Receiver::setMinSalary(150000);
         }
         else if((profit >= 3000000) && (profit < 4000000)){
-            minSalary = 20000;
+            Receiver::setMinSalary(20000);
         }
         else{
-            minSalary = 25000;
+            Receiver::setMinSalary(25000);
         }
 
-        if(workingDays == calendarWorkingDays){
-            return minSalary;
+        if(Receiver::getWorkingDays() == Receiver::getCalendarWorkingDays()){
+            return Receiver::getMinSalary();
         }
         else{
-            minSalary = (minSalary*workingDays)/calendarWorkingDays;
-            return minSalary;
+            Receiver::setMinSalary(Receiver::getMinSalary()*Receiver::getWorkingDays()/Receiver::getCalendarWorkingDays());
+            return Receiver::getMinSalary();
         }
+
+}
+
+Receiver::~Receiver(){
 
 }

@@ -6,6 +6,8 @@ class Master : public Employee
 {
 public:
     Master();
+    ~Master();
+
     // оплата выработки
     double getMasterProfit();
     void setMasterProfit(double masterProfit);
@@ -29,7 +31,6 @@ public:
 
     //Итоговая зарплата
     double calculateTotalSalary();
-
 private:
     double masterProfit;
     bool isPremium = false;

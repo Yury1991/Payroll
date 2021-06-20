@@ -6,8 +6,6 @@ class Manager : public Employee
 {
 public:
     Manager();
-
-
 private:
     double sellProfit = 0;
 

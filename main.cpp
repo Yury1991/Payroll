@@ -17,9 +17,9 @@ int main()
     double tempPrice = 0;
     int tempCalendarWorkingDays = 0;
     int tempWorkingDays = 0;
-    bool tempIsPremium;
+    //bool tempIsPremium;
     string temp;
- /*   cout << "-----------------------------------Test Priemshika i directora---------------------------------------- :" << endl;
+    cout << "-----------------------------------Test Priemshika i directora---------------------------------------- :" << endl;
     cout << "Vvedite vyrabotku" << endl;
     cin >>tempPrice;
     receiver.setProfit(tempPrice);
@@ -61,9 +61,9 @@ int main()
     cout <<"Doplata directora" << endl;
     cout << (long int)director.getDirectorFee() << endl;
     cout <<"Polnaya zarabotnaya plata directora:" << endl;
-    cout << (long int)director.calculateTotalSalary() << endl;*/
+    cout << (long int)director.calculateTotalSalary() << endl;
 
-    cout << "-----------------------------------Test Mastera---------------------------------------- :" << endl;
+/*    cout << "-----------------------------------Test Mastera---------------------------------------- :" << endl;
     cout << "Vvedite vyrabotku rabotnika" << endl;
     cin >>tempPrice;
     master.setMasterProfit(tempPrice);
@@ -118,7 +118,7 @@ int main()
     cout <<"Polnaya zarabotnaya plata directora:" << endl;
     cout << (long int)master.calculateTotalSalary() << endl;
 }
-
+*/
 
 
 

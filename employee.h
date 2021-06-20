@@ -6,39 +6,30 @@ class Employee
 {
 public:
     Employee();
-
+    ~Employee();
 
     //Расчет минимальной зарплаты/оклада
-    double getMinSalary();
-    void setMinSalary(double minSalary);
-    double calculateMinSalary();
+    virtual double getMinSalary();
+    virtual void setMinSalary(double minSalary);
+    virtual double calculateMinSalary();
 
     //Управление отработанными днями
-    int getWorkingDays();
-    void setWorkingDays(int workingDays);
+    virtual int getWorkingDays();
+    virtual void setWorkingDays(int workingDays);
 
     //Управление календарными рабочими днями
-    int getCalendarWorkingDays();
-    void setCalendarWorkingDays(int workingDays);
-
-    //Отсутствие работника
-    bool getIsMissed();
-    void setIsMissed(bool isMissed);
-
+    virtual int getCalendarWorkingDays();
+    virtual void setCalendarWorkingDays(int workingDays);
 
     //Итоговая зарплата
-
-    double calculateTotalSalary();
-
-
-    double totalSalary; // итоговая зарплата
-
+    virtual double getTotalSalary();
+    virtual void setTotalSalary( double totalSalary);
+    virtual double calculateTotalSalary();
 private:
-    double minSalary = 10000;           //минимальный оклад
-
-    int workingDays = 0;                //  отработанные дни
-    int calendarWorkingDays = 0;        // календарные рабочие дни
-    bool isMissed = false;              // отсутствие
+    double minSalary = 0;       // минимальный оклад
+    int workingDays = 0;            // отработанные дни
+    int calendarWorkingDays = 0;    // календарные рабочие дни
+    double totalSalary = 0;             // итоговая зарплата
 
 };
 

@@ -62,6 +62,10 @@ double Master::calculatePremium() {
 
 //Итоговая зарплата
 double Master::calculateTotalSalary(){
-    totalSalary = masterProfit + premium;
-    return totalSalary;
+    setTotalSalary(masterProfit + premium);
+    return getTotalSalary();
+}
+
+Master::~Master(){
+
 }

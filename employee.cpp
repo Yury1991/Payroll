@@ -12,19 +12,11 @@ void Employee::setWorkingDays(int workingDays){
     this->workingDays = workingDays;
 }
 
-
 int Employee::getCalendarWorkingDays(){
     return calendarWorkingDays;
 }
 void Employee::setCalendarWorkingDays(int calendarWorkingDays){
     this->calendarWorkingDays = calendarWorkingDays;
-}
-
-bool Employee::getIsMissed(){
-    return isMissed;
-}
-void Employee::setIsMissed(bool isMissed){
-    this->isMissed = isMissed;
 }
 
 double Employee::getMinSalary(){
@@ -34,17 +26,25 @@ void Employee::setMinSalary(double minSalary){
     this->minSalary = minSalary;
 }
 double Employee::calculateMinSalary(){
-    if(isMissed == false){
+    if(workingDays == calendarWorkingDays){
         return minSalary;
     }
     else{
         minSalary = (minSalary * workingDays)/calendarWorkingDays;
          return minSalary;
     }
-
 }
-
+double Employee::getTotalSalary(){
+    return totalSalary;
+}
+void Employee::setTotalSalary( double totalSalary){
+    this->totalSalary = totalSalary;
+}
 double Employee::calculateTotalSalary(){
     totalSalary = minSalary;
     return totalSalary;
+}
+
+Employee:: ~Employee(){
+
 }
