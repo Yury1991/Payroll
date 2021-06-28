@@ -3,47 +3,42 @@
 
 #include <QDialog>
 #include <QtWidgets>
+#include "employeewindow.h"
 
-class ReceiverWindow : public QDialog
+class EmployeeWindow;
+
+class ReceiverWindow : public EmployeeWindow //EmployeeWindow
 {
     Q_OBJECT
 public:
     ReceiverWindow();
     ~ReceiverWindow();
 
-    /*Расчет выработки
-    virtual double getProfit();
-    virtual void setProfit(double profit);*/
 
     QLabel *profitLabel;
     QLineEdit *profitLine;
-
-
-    /*Расчет процента от выработки
-    virtual double getPercent();
-    virtual double calculateSalaryPercent();*/
-
     QLabel *salaryPercentLabel;
     QLineEdit *salaryPercentLine;
-    /*Расчет минимальной зарплаты/оклада
-    double calculateMinSalary() override;*/
-
     QLabel *minSalaryLabel;
     QLineEdit *minSalaryLine;
-
-    /*Расчет итоговой зарплаты
-    double calculateTotalSalary() override;*/
-
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
 
+
+public slots:
+     void slotCalculateButtonClicked() override;
 
 
  private:
     double profit = 0;          //общая выработка предприятия
     const double percent = 0.015;     // процент от выработки
     double salaryPercent = 0;   // процент от выработки в денежном эквиваленте
-    double totalSalary = 0;
+    double totalSalary = 0;    
+    QHBoxLayout *profitLayout;
+    QHBoxLayout *salaryPercentLayout;
+    QHBoxLayout *minSalaryLayout;
+    QHBoxLayout *totalSalaryLayout;
+    QGridLayout *receiverLayout;
 };
 
 #endif // RECEIVERWINDOW_H

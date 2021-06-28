@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QtWidgets>
-#include "staffwindow.h"
+
 class MainWindow : public QDialog
 {
     Q_OBJECT

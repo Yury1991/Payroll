@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include "staffwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
@@ -7,13 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
     calculateButton = createButton("Рассчитать зарплату");
     exitButton = createButton("Выход");
 
-    connect(calculateButton, SIGNAL(clicked()), this, SLOT(slotCalculateButtonClicked()));
-    connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(calculateButton, &QPushButton::clicked, this, &MainWindow::slotCalculateButtonClicked);
+    connect(exitButton, &QPushButton::clicked, this, &MainWindow::close);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->addWidget(calculateButton);
     vlayout->addWidget(exitButton);
     setLayout(vlayout);
+    setWindowTitle("Расчет зарплаты персонала");
     resize(300, 300);
 }
 
@@ -25,6 +26,7 @@ QPushButton* MainWindow::createButton(const QString &str){
 
 
 void MainWindow::slotCalculateButtonClicked(){
+    this->close();
     StaffWindow *staffWindow = new StaffWindow();
     staffWindow->show();
 }

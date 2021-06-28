@@ -1,42 +1,60 @@
 #include "receiverwindow.h"
+#include "receiver.h"
+
 
 ReceiverWindow::ReceiverWindow()
 {
-    profitLabel = new QLabel("Введите выработку предприятия: ");
-    profitLine = new QLineEdit(" ");
-    QHBoxLayout *profitLayout = new QHBoxLayout;
-    profitLayout->addWidget(profitLabel);
-    profitLayout->addWidget(profitLine);
+    profitLabel = createLabel("Введите выработку предприятия: ");
+    profitLine = createEmptyLine();
+    salaryPercentLabel = createLabel("Процент от выработки: ");
+    salaryPercentLine  = createEmptyLine();
+    workingDaysLabel = createLabel("Отработанные дни:");
+    workingDaysLine = createEmptyLine();
+    calendarWorkingDaysLabel = createLabel("Календарные дни:");
+    calendarWorkingDaysLine = createEmptyLine();
+    minSalaryLabel = createLabel("Оклад: ");
+    minSalaryLine = createEmptyLine();
+    totalSalaryLabel = createLabel("Итоговая зарплата: ");
+    totalSalaryLine = createEmptyLine();
 
-    salaryPercentLabel = new QLabel("Процент от выработки: ");
-    salaryPercentLine  = new QLineEdit(" ");
-    QHBoxLayout *salaryPercentLayout = new QHBoxLayout;
-    salaryPercentLayout->addWidget(salaryPercentLabel);
-    salaryPercentLayout->addWidget(salaryPercentLine);
+    calculateButton = createButton("Рассчитать");
+    connect(calculateButton, &QPushButton::clicked, this, &ReceiverWindow::slotCalculateButtonClicked);
+
+    profitLayout = createPackedLayout(profitLabel, profitLine);    
+    salaryPercentLayout = createPackedLayout(salaryPercentLabel, salaryPercentLine);
+    workingDaysLayout = createPackedLayout(workingDaysLabel, workingDaysLine);
+    calendarWorkingDaysLayout = createPackedLayout(calendarWorkingDaysLabel, calendarWorkingDaysLine);
+    minSalaryLayout = createPackedLayout(minSalaryLabel, minSalaryLine);
+    totalSalaryLayout = createPackedLayout(totalSalaryLabel, totalSalaryLine);
+    calculateLayout = createPackedLayout(calculateButton);
 
 
-    minSalaryLabel = new QLabel("Процент от выработки: ");
-    minSalaryLine = new QLineEdit(" ");
-    QHBoxLayout *minSalaryLayout = new QHBoxLayout;
-    minSalaryLayout->addWidget(minSalaryLabel);
-    minSalaryLayout->addWidget(minSalaryLine);
 
+    receiverLayout = createMainLayout();
+    receiverLayout->addLayout(profitLayout, 0 , 0);
+    receiverLayout->addLayout(salaryPercentLayout, 1 , 0);
+    receiverLayout->addLayout(minSalaryLayout, 2 , 0);
+    receiverLayout->addLayout(totalSalaryLayout, 3 , 0);
+    receiverLayout->addLayout(minSalaryLayout, 4 , 0);
+    receiverLayout->addLayout(totalSalaryLayout, 5 , 0);
+    receiverLayout->addLayout(calculateLayout, 6, 0);
 
-    totalSalaryLabel = new QLabel("Итоговая зарплата: ");
-    totalSalaryLine = new QLineEdit(" ");
-    QHBoxLayout *totalSalaryLayout = new QHBoxLayout;
-    totalSalaryLayout->addWidget(totalSalaryLabel);
-    totalSalaryLayout->addWidget(totalSalaryLine);
-
-    QGridLayout *employeeLayout = new QGridLayout;
-    employeeLayout->addLayout(profitLayout, 0 , 0);
-    employeeLayout->addLayout(salaryPercentLayout, 1 , 0);
-    employeeLayout->addLayout(minSalaryLayout, 2 , 0);
-    employeeLayout->addLayout(totalSalaryLayout, 3 , 0);
-    setLayout(employeeLayout);
-    setMinimumSize(200, 200);
-
+    setLayout(receiverLayout);
+    setWindowTitle("Расчет зарплаты приемщиков");
+    setMinimumSize(350, 350);
 }
+
+void ReceiverWindow::slotCalculateButtonClicked(){
+    Receiver *receiver = new Receiver();
+    receiver->setProfit(getValue(profitLine));
+    receiver->calculateSalaryPercent();
+    receiver->setWorkingDays(getValue(workingDaysLine));
+    receiver->setCalendarWorkingDays(getValue(calendarWorkingDaysLine));
+    receiver->calculateMinSalary();
+    QString res = QString::number(receiver->calculateTotalSalary());
+    totalSalaryLine->setText(res);
+}
+
 
 ReceiverWindow::~ReceiverWindow(){
 
