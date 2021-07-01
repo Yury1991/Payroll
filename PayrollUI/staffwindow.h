@@ -14,20 +14,20 @@ public:
     StaffWindow();
     ~StaffWindow();
     //Методы
-    QPushButton* createButton(const QString &str); //создание кнопки
+    QPushButton *createButton(const QString &str); //создание кнопки
+    QString *getButtonName();
+    void setButtonName(QString buttonName);
 public slots:
-    void slotReceiverButtonClicked();
-    void slotEmployeeButtonClicked();
-    void slotDirectorButtonClicked();
-    void slotBackButtonClicked();
+    void slotButtonClicked();
 private:
-    QLabel *staffLabel;
+    QLabel *staffLabel = new QLabel("Список сотрудников:");
     QPushButton *employeeButton;
     QPushButton *receiverButton;
     QPushButton *directorButton;
     QPushButton *masterButton;
     QPushButton *managerButton;
     QPushButton *backButton;
+    QString *buttonName = nullptr;
 };
 
 #endif // STAFFWINDOW_H

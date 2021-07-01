@@ -1,7 +1,9 @@
-#ifndef DIRECTORWINDOW_H
+/*#ifndef DIRECTORWINDOW_H
 #define DIRECTORWINDOW_H
 
 #include "receiverwindow.h"
+
+class ReceiverWindow;
 
 class DirectorWindow : public ReceiverWindow
 {
@@ -18,3 +20,5 @@ private:
 };
 
 #endif // DIRECTORWINDOW_H
+
+*/

@@ -2,12 +2,12 @@
 #include "staffwindow.h"
 #include "receiverwindow.h"
 #include "employeewindow.h"
-#include "director.h"
+//#include "directorwindow.h"
 
 
 StaffWindow::StaffWindow()
 {
-    staffLabel = new QLabel("Список сотрудников:");
+
     employeeButton = createButton("Окладчик");
     receiverButton = createButton("Приемщики");
     directorButton = createButton("Директор");
@@ -15,9 +15,6 @@ StaffWindow::StaffWindow()
     managerButton = createButton("Менеджеры");
     backButton = createButton("Назад");
 
-    connect(receiverButton, &QPushButton::clicked, this, &StaffWindow::slotReceiverButtonClicked);
-    connect(employeeButton, &QPushButton::clicked, this, &StaffWindow::slotEmployeeButtonClicked);
-    connect(backButton, &QPushButton::clicked, this, &StaffWindow::slotBackButtonClicked);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->addWidget(staffLabel);
@@ -34,32 +31,37 @@ StaffWindow::StaffWindow()
 QPushButton* StaffWindow::createButton(const QString &str){
     QPushButton *pb = new QPushButton(str);
     pb->setMinimumSize(40, 40);
+    connect(pb, &QPushButton::clicked, this, &StaffWindow::slotButtonClicked);
+    setButtonName(pb->text());
     return pb;
 }
-
-void StaffWindow::slotReceiverButtonClicked(){
-    this->close();
-    ReceiverWindow *receiverWindow = new ReceiverWindow();
-    receiverWindow->getWidget()->show();
+QString *StaffWindow::getButtonName(){
+    return buttonName;
+}
+void StaffWindow::setButtonName(QString buttonName){
+    this->buttonName = &buttonName;
 }
 
-void StaffWindow::slotEmployeeButtonClicked(){
+
+void StaffWindow::slotButtonClicked(){
+    if(buttonName == (employeeButton->text())){
+        EmployeeWindow *employeeWindow = new EmployeeWindow();
+        employeeWindow->show();
+    }
+    else if(buttonName == receiverButton->text()){
+        ReceiverWindow *receiverWindow = new ReceiverWindow();
+        receiverWindow->show();
+    }
+    else{
+        MainWindow *mainWindow = new MainWindow();
+        mainWindow->show();
+    }
     this->close();
-    EmployeeWindow *employeeWindow = new EmployeeWindow();
-    employeeWindow->getWidget()->show();
 }
 
-void StaffWindow::slotDirectorButtonClicked(){
-    this->close();
-    DirectorWindow *directorWindow = new  DirectorWindow();
-    directorWindow->getWidget()->show();
-}
 
-void StaffWindow::slotBackButtonClicked(){
-    this->close();
-    MainWindow *mainWindow = new MainWindow();
-    mainWindow->show();
-}
+
+
 
 StaffWindow::~StaffWindow(){
 
