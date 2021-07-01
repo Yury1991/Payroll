@@ -18,6 +18,7 @@ public:
 public slots:
     void slotReceiverButtonClicked();
     void slotEmployeeButtonClicked();
+    void slotDirectorButtonClicked();
     void slotBackButtonClicked();
 private:
     QLabel *staffLabel;

@@ -1,23 +1,20 @@
 #ifndef EMPLOYEEWINDOW_H
 #define EMPLOYEEWINDOW_H
-
+#include <QMainWindow>
 #include <QDialog>
 #include <QtWidgets>
+#include "directorwindow.h"
 
 
-
-class EmployeeWindow : public QDialog
+class EmployeeWindow : public QMainWindow
 {
     friend class ReceiverWindow;
+    friend class DirectorWindow;
     Q_OBJECT
-
-
 public:
     //Конструкторы:
     EmployeeWindow(QWidget *parent = nullptr);
     ~EmployeeWindow();
-
-
 
      //Методы:
     QHBoxLayout *getHBoxLayout(QHBoxLayout *getHBoxLayout);
@@ -28,14 +25,17 @@ public:
      QPushButton *createButton(const QString &str);
      QLineEdit *createLine(const QString &str);
      QLineEdit *createEmptyLine();
-     QHBoxLayout *createPackedLayout(QWidget *pwgt1);
-     QHBoxLayout *createPackedLayout(QWidget *pwgt1, QWidget *pwgt2);
+     QHBoxLayout *createPackedHLayout(QWidget *pwgt1);
+     QHBoxLayout *createPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
+     QVBoxLayout *createPackedVLayout(QWidget *pwgt1, QWidget *pwgt2);
      QGridLayout *createMainLayout();
      QGridLayout *getMainLayout();
+     QWidget *getWidget();
 
    // QVector<QHBoxLayout> *insertLayout(QHBoxLayout *hlayout);
 public slots:
     virtual void slotCalculateButtonClicked();
+     void slotBackButtonClicked();
 
 private:
     QLabel *salaryLabel = nullptr;
@@ -51,9 +51,11 @@ private:
     QHBoxLayout *workingDaysLayout = nullptr;
     QHBoxLayout *calendarWorkingDaysLayout= nullptr;
     QHBoxLayout *totalSalaryLayout= nullptr;
-    QHBoxLayout *calculateLayout= nullptr;
+    QVBoxLayout *calculateLayout= nullptr;
    // QVector<QHBoxLayout> *quantityHorizontalLayouts;
     QGridLayout *mainLayout= nullptr;
+    QPushButton *backButton;
+    QWidget *employeeWidget;
 
 
 };
