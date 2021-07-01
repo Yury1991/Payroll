@@ -5,9 +5,7 @@
 #include "receiver.h"
 
 
-class Director : public Receiver
-{
-
+class Director : public Receiver{
 public:
     //Конструктор
     Director();
@@ -31,6 +29,7 @@ private:
     double minSalary = 0;               //минимальный оклад/зарплата
     double salaryPercent = 0;           //процент от выработки в денежном эквиваленте
     double totalSalary = 0 ;
+
 };
 
 #endif // DIRECTOR_H

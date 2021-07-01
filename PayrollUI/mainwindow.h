@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <QMainWindow>
 #include <QDialog>
 #include <QtWidgets>
 
@@ -8,7 +8,7 @@ class MainWindow : public QDialog
 {
     Q_OBJECT
 
-private:
+private:   
     QPushButton *calculateButton;   //кнопка рассчитать
     QPushButton *exitButton;        //кнопка выхода
 public:

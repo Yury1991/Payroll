@@ -5,16 +5,29 @@
 #include <QtWidgets>
 #include "employeewindow.h"
 
-class EmployeeWindow;
-
-class ReceiverWindow : public EmployeeWindow //EmployeeWindow
+class ReceiverWindow : public EmployeeWindow
 {
-    Q_OBJECT
+    friend class DirectorWindow;
+
 public:
-    ReceiverWindow();
+     explicit ReceiverWindow(QWidget *parent = nullptr);
     ~ReceiverWindow();
-
-
+    QHBoxLayout *createPackedHLayout(QWidget *pwgt1);
+    QHBoxLayout *createPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
+    QLabel *createLabel(const QString &str);
+    QPushButton *createButton(const QString &str);
+    QLineEdit *createLine(const QString &str);
+    QLineEdit *createEmptyLine();
+    QGridLayout *createMainLayout();
+    QGridLayout *getMainLayout();
+    QWidget *getWidget();
+public slots:
+     void slotCalculateButtonClicked();
+ private:
+    double profit = 0;          //общая выработка предприятия
+    const double percent = 0.015;     // процент от выработки
+    double salaryPercent = 0;   // процент от выработки в денежном эквиваленте
+    double totalSalary = 0;
     QLabel *profitLabel;
     QLineEdit *profitLine;
     QLabel *salaryPercentLabel;
@@ -23,22 +36,13 @@ public:
     QLineEdit *minSalaryLine;
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
-
-
-public slots:
-     void slotCalculateButtonClicked() override;
-
-
- private:
-    double profit = 0;          //общая выработка предприятия
-    const double percent = 0.015;     // процент от выработки
-    double salaryPercent = 0;   // процент от выработки в денежном эквиваленте
-    double totalSalary = 0;    
     QHBoxLayout *profitLayout;
     QHBoxLayout *salaryPercentLayout;
     QHBoxLayout *minSalaryLayout;
     QHBoxLayout *totalSalaryLayout;
     QGridLayout *receiverLayout;
+    QWidget *receiverWidget;
+
 };
 
 #endif // RECEIVERWINDOW_H

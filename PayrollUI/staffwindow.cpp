@@ -2,6 +2,7 @@
 #include "staffwindow.h"
 #include "receiverwindow.h"
 #include "employeewindow.h"
+#include "director.h"
 
 
 StaffWindow::StaffWindow()
@@ -39,13 +40,19 @@ QPushButton* StaffWindow::createButton(const QString &str){
 void StaffWindow::slotReceiverButtonClicked(){
     this->close();
     ReceiverWindow *receiverWindow = new ReceiverWindow();
-    receiverWindow->show();
+    receiverWindow->getWidget()->show();
 }
 
 void StaffWindow::slotEmployeeButtonClicked(){
     this->close();
     EmployeeWindow *employeeWindow = new EmployeeWindow();
-    employeeWindow->show();
+    employeeWindow->getWidget()->show();
+}
+
+void StaffWindow::slotDirectorButtonClicked(){
+    this->close();
+    DirectorWindow *directorWindow = new  DirectorWindow();
+    directorWindow->getWidget()->show();
 }
 
 void StaffWindow::slotBackButtonClicked(){
