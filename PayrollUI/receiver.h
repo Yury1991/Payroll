@@ -4,9 +4,10 @@
 
 class Receiver : public Employee
 {
-
+    friend class Director;
 public:
     Receiver();    // Конструктор
+    Receiver(QString fullName, double profit, unsigned short workingDays, unsigned short calendarWorkingDays, bool isPayFund);
     ~Receiver();    //Деструктор
 
     //Расчет выработки
@@ -23,11 +24,10 @@ public:
     //Расчет итоговой зарплаты
     double calculateTotalSalary() override;
  private:
-    double profit = 0;          //общая выработка предприятия
-    const double percent = 0.015;     // процент от выработки
-    double salaryPercent = 0;   // процент от выработки в денежном эквиваленте
-    double totalSalary = 0;
-
+    const string position = "Приемщик"; //Должность сотрудника
+    double profit = 0;                  //Общая выработка предприятия
+    const double percent = 0.015;       //Процент от выработки
+    double salaryPercent = 0;           //Процент от выработки в денежном эквиваленте
 };
 
 #endif // RECEIVER_H

@@ -7,27 +7,28 @@
 
 
 class StaffWindow : public QDialog{
-
     Q_OBJECT
-
 public:
     StaffWindow();
     ~StaffWindow();
     //Методы
     QPushButton *createButton(const QString &str); //создание кнопки
-    QString *getButtonName();
-    void setButtonName(QString buttonName);
-public slots:
-    void slotButtonClicked();
+
+public slots:    
+    void slotEmployeeButtonClicked();
+    void slotReceiverButtonClicked();
+    void slotDirectorButtonClicked();
+  /*void slotMasterButtonClicked();*/
+    void slotManagerButtonClicked();
+    void slotBackButtonClicked();
 private:
     QLabel *staffLabel = new QLabel("Список сотрудников:");
     QPushButton *employeeButton;
     QPushButton *receiverButton;
     QPushButton *directorButton;
     QPushButton *masterButton;
-    QPushButton *managerButton;
-    QPushButton *backButton;
-    QString *buttonName = nullptr;
+    QPushButton *managerButton;                                      
+    QPushButton *backButton;    
 };
 
 #endif // STAFFWINDOW_H

@@ -13,10 +13,16 @@ SOURCES += \
     directorwindow.cpp \
     employee.cpp \
     employeewindow.cpp \
+    errorwindow.cpp \
+    fileprogress.cpp \
     main.cpp \
     mainwindow.cpp \
+    manager.cpp \
+    managerwindow.cpp \
+    optionswindow.cpp \
     receiver.cpp \
     receiverwindow.cpp \
+    simpledialogwindow.cpp \
     staffwindow.cpp
 
 HEADERS += \
@@ -24,9 +30,15 @@ HEADERS += \
     directorwindow.h \
     employee.h \
     employeewindow.h \
+    errorwindow.h \
+    fileprogress.h \
     mainwindow.h \
+    manager.h \
+    managerwindow.h \
+    optionswindow.h \
     receiver.h \
     receiverwindow.h \
+    simpledialogwindow.h \
     staffwindow.h
 
 # Default rules for deployment.

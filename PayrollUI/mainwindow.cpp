@@ -1,25 +1,29 @@
 #include "mainwindow.h"
 #include "staffwindow.h"
+#include "optionswindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QDialog(parent)
 {
     calculateButton = createButton("Рассчитать зарплату");
+    settingsButton = createButton("Настройки");
     exitButton = createButton("Выход");
 
     connect(calculateButton, &QPushButton::clicked, this, &MainWindow::slotCalculateButtonClicked);
+    connect(settingsButton, &QPushButton::clicked, this, &MainWindow::slotSettingsButtonClicked);
     connect(exitButton, &QPushButton::clicked, this, &MainWindow::close);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
     vlayout->addWidget(calculateButton);
+    vlayout->addWidget(settingsButton);
     vlayout->addWidget(exitButton);
     setLayout(vlayout);
     setWindowTitle("Расчет зарплаты персонала");
-    resize(300, 300);
+    resize(350, 100);
 }
 
 QPushButton* MainWindow::createButton(const QString &str){
-    QPushButton *pb= new QPushButton(str);
+    QPushButton *pb = new QPushButton(str);
     pb->setMinimumSize(40, 40);
     return pb;
 }
@@ -32,7 +36,11 @@ void MainWindow::slotCalculateButtonClicked(){
 }
 
 
-
+void MainWindow::slotSettingsButtonClicked(){
+    this->close();
+    OptionsWindow *optionsWindow = new OptionsWindow();
+    optionsWindow->show();
+}
 
 
 MainWindow::~MainWindow()

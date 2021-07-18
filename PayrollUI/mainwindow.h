@@ -7,19 +7,18 @@
 class MainWindow : public QDialog
 {
     Q_OBJECT
-
-private:   
-    QPushButton *calculateButton;   //кнопка рассчитать
-    QPushButton *exitButton;        //кнопка выхода
 public:
     //Конструкторы:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
     //Методы
     QPushButton* createButton(const QString &str); //создание кнопки
 public slots:
     virtual void slotCalculateButtonClicked();
-
+    void slotSettingsButtonClicked();
+private:
+    QPushButton *calculateButton;   //кнопка рассчитать
+    QPushButton *settingsButton;     //кнопка параметры
+    QPushButton *exitButton;        //кнопка выхода
 };
 #endif // MAINWINDOW_H

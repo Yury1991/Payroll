@@ -1,8 +1,13 @@
 #include "receiver.h"
 
-Receiver::Receiver()
-{
+Receiver::Receiver(){}
 
+Receiver::Receiver(QString fullName, double profit,  unsigned short workingDays, unsigned short calendarWorkingDays, bool isPayFund){
+    this->fullName = fullName;
+    this->profit = profit;
+    this->workingDays = workingDays;
+    this->calendarWorkingDays = calendarWorkingDays;
+    this->isPayFund = isPayFund;
 }
 double Receiver::getProfit(){
     return profit;
@@ -16,7 +21,6 @@ double Receiver::getPercent(){
 }
 
 double Receiver::calculateSalaryPercent(){
-
     salaryPercent = profit * 0.015;
     if(Receiver::getWorkingDays() == Receiver::getCalendarWorkingDays()){
         return salaryPercent;
@@ -29,7 +33,15 @@ double Receiver::calculateSalaryPercent(){
 
 double Receiver::calculateTotalSalary(){
     Receiver::setTotalSalary(Receiver::getMinSalary() + salaryPercent);
-    return getTotalSalary();
+    if(isPayFund == true){
+        totalSalary -= totalSalary *0.1;
+        return totalSalary;
+    }
+    else{
+        return totalSalary;
+    }
+
+
 }
 
 double Receiver::calculateMinSalary(){
@@ -53,7 +65,6 @@ double Receiver::calculateMinSalary(){
             Receiver::setMinSalary(Receiver::getMinSalary()*Receiver::getWorkingDays()/Receiver::getCalendarWorkingDays());
             return Receiver::getMinSalary();
         }
-
 }
 
 Receiver::~Receiver(){

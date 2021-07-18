@@ -1,50 +1,47 @@
 #ifndef RECEIVERWINDOW_H
 #define RECEIVERWINDOW_H
 
-#include <QDialog>
-#include <QtWidgets>
 #include "employeewindow.h"
 
-
+class Receiver;
 
 class ReceiverWindow : public EmployeeWindow
 {
     friend class DirectorWindow;
+    friend class ManagerWindow;
 public:
     //Конструкторы
      ReceiverWindow(QWidget *parent = nullptr);
-    ~ReceiverWindow();
-
-   /* QHBoxLayout *createPackedHLayout(QWidget *pwgt1);
-    QHBoxLayout *createPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
-    QLabel *createLabel(const QString &str);
-    QPushButton *createButton(const QString &str);    
-    QLineEdit *createEmptyLine();
-    QGridLayout *createMainLayout();
-    QGridLayout *getMainLayout();
-    QWidget *getWidget();*/
+    ~ReceiverWindow();   
 public slots:
-     void slotButtonClicked() override;
- private:
-    double profit = 0;          //общая выработка предприятия
-    const double percent = 0.015;     // процент от выработки
-    double salaryPercent = 0;   // процент от выработки в денежном эквиваленте
-    double totalSalary = 0;
+     void slotCalculateButtonClicked() override;
+     void slotBackButtonClicked() override;
+     void slotWriteButtonClicked() override;
+ private:    
+    //Элементы интерфейса:
     QLabel *profitLabel;
     QLineEdit *profitLine;
     QLabel *salaryPercentLabel;
-    QLineEdit *salaryPercentLine;
+    QLabel *salaryPercentValueLabel;
     QLabel *minSalaryLabel;
-    QLineEdit *minSalaryLine;
+    QLabel *minSalaryValueLabel;
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
+
+    //Объект класса:
+    Receiver *receiver;
+    //  Компоновка окна
+    // Горизонталтные мслои
     QHBoxLayout *profitLayout;
     QHBoxLayout *salaryPercentLayout;
     QHBoxLayout *minSalaryLayout;
     QHBoxLayout *totalSalaryLayout;
-    QGridLayout *receiverLayout;
+    //Вектор горизонтальных слоев
+    QVector<QHBoxLayout*> receiverLayouts;
+    //Главный слой
+    QGridLayout *receiverMainLayout;
+    //Виджет
     QWidget *receiverWidget;
-
 };
 
 #endif // RECEIVERWINDOW_H

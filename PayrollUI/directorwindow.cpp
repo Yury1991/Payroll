@@ -1,43 +1,72 @@
-/*#include "directorwindow.h"
+#include "directorwindow.h"
 #include "staffwindow.h"
 #include "director.h"
 
 DirectorWindow::DirectorWindow(QWidget *parent): ReceiverWindow(parent)
 {
-    profitLine = createEmptyLine();
+    profitLabel = createLabel("Выработка предприятия");
+    profitLine = createEmptyLine(200);
     salaryPercentLabel = createLabel("Процент от выработки: ");
-    salaryPercentLine  = createEmptyLine();
+    salaryPercentValueLabel  = createEmptyLabel();
     workingDaysLabel = createLabel("Отработанные дни:");
-    workingDaysLine = createEmptyLine();
-    calendarWorkingDaysLabel = createLabel("Календарные дни:");
-    calendarWorkingDaysLine = createEmptyLine();
+    workingDaysLine = createEmptyLine(200);
+    calendarWorkingDaysLabel = createLabel("Рабочие дни:");
+    calendarWorkingDaysLine = createEmptyLine(200);
     minSalaryLabel = createLabel("Оклад: ");
-    minSalaryLine = createEmptyLine();
+    minSalaryValueLabel = createEmptyLabel();
+    directorFeeLabel = createLabel("Доплата директора:");
+    directorFeeValueLabel = createEmptyLabel();
     totalSalaryLabel = createLabel("Итоговая зарплата: ");
-    totalSalaryLine = createEmptyLine();
-    calculateButton = createButton("Рассчитать");
-    backButton = createButton("Назад");
+    totalSalaryLine = createEmptyLine(200);
 
+    calculateButton = createButton("Рассчитать");
+    writeButton = createButton("Записать");
+    backButton = createButton("Назад");
+    connect(calculateButton, &QPushButton::clicked, this, &DirectorWindow::slotCalculateButtonClicked);
+    connect(backButton, &QPushButton::clicked, this, &DirectorWindow::slotBackButtonClicked);
+
+    dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
+    fullNameLayout = createPackedHLayout(fullNameLabel, fullNameLine);
     profitLayout = createPackedHLayout(profitLabel, profitLine);
-    salaryPercentLayout = createPackedHLayout(salaryPercentLabel, salaryPercentLine);
+    salaryPercentLayout = createPackedHLayout(salaryPercentLabel, salaryPercentValueLabel);
     workingDaysLayout = createPackedHLayout(workingDaysLabel, workingDaysLine);
     calendarWorkingDaysLayout = createPackedHLayout(calendarWorkingDaysLabel, calendarWorkingDaysLine);
-    minSalaryLayout = createPackedHLayout(minSalaryLabel, minSalaryLine);
+    payFundLayout = createPackedHLayout(payFundRadio);
+    minSalaryLayout = createPackedHLayout(minSalaryLabel, minSalaryValueLabel);
+    directorFeeLayout = createPackedHLayout(directorFeeLabel, directorFeeValueLabel);
     totalSalaryLayout = createPackedHLayout(totalSalaryLabel, totalSalaryLine);
-    calculateLayout = createPackedHLayout(calculateButton, backButton);
-    directorLayout = createMainLayout();   
-    directorWidget = createWidget(directorLayout);
-    setWindowTitle("Расчет зарплаты директора");
+    calculateLayout = createButtonHLayout(calculateButton, writeButton);
+    backLayout = createPackedHLayout(backButton);
 
+    directorLayouts = {dateLayout, fullNameLayout, profitLayout, workingDaysLayout, calendarWorkingDaysLayout,
+                      payFundLayout, salaryPercentLayout, minSalaryLayout, directorFeeLayout, totalSalaryLayout, calculateLayout, backLayout};
+    directorLayout = createMainLayout(directorLayouts);
+    directorWidget = createWidget(directorLayout);
+    setCentralWidget(directorWidget);
+    setWindowTitle("Расчет зарплаты директора");
 }
+
 void DirectorWindow::slotCalculateButtonClicked() {
-    Director *director = new Director();
-    director->setMinSalary(getValue(salaryLine));
-    director->setWorkingDays(getValue(workingDaysLine));
-    director->setCalendarWorkingDays(getValue(calendarWorkingDaysLine));
-    QString res = QString::number(director->calculateTotalSalary());
-    totalSalaryLine->setText(res);
-    totalSalaryLine->displayText();
+    if((getValue(workingDaysLine) > getValue(calendarWorkingDaysLine)) || (getValue(profitLine) == 0)
+            || (getValue(calendarWorkingDaysLine) == 0)){
+        totalSalaryLine->setText(inputError);
+        totalSalaryLine->displayText();
+        minSalaryValueLabel->setText("");
+        salaryPercentValueLabel->setText("");
+    }
+    else{    
+        director = new Director(fullNameLine->text(), getValue(profitLine), getValue(workingDaysLine), getValue(calendarWorkingDaysLine),
+                                payFundRadio->isChecked());
+        QString directorFeeValue = QString::number(director->getDirectorFee());
+        QString salaryPercentValue = QString::number(director->calculateSalaryPercent());
+        QString directorMinSalaryValue = QString::number(director->calculateMinSalary());
+        QString totalSalaryValue = QString::number(director->calculateTotalSalary());
+        minSalaryValueLabel->setText(directorMinSalaryValue);
+        directorFeeValueLabel->setText(directorFeeValue);
+        salaryPercentValueLabel->setText(salaryPercentValue);
+        totalSalaryLine->setText(totalSalaryValue);
+        totalSalaryLine->displayText();
+    }
 }
 
 void DirectorWindow::slotBackButtonClicked(){
@@ -54,4 +83,3 @@ DirectorWindow::~DirectorWindow(){
 
 }
 
-*/
