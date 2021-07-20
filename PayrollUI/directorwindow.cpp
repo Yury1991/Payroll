@@ -5,19 +5,19 @@
 DirectorWindow::DirectorWindow(QWidget *parent): ReceiverWindow(parent)
 {
     profitLabel = createLabel("Выработка предприятия");
-    profitLine = createEmptyLine(200);
+    profitLine = createEmptyLine();
     salaryPercentLabel = createLabel("Процент от выработки: ");
     salaryPercentValueLabel  = createEmptyLabel();
     workingDaysLabel = createLabel("Отработанные дни:");
-    workingDaysLine = createEmptyLine(200);
+    workingDaysLine = createEmptyLine();
     calendarWorkingDaysLabel = createLabel("Рабочие дни:");
-    calendarWorkingDaysLine = createEmptyLine(200);
+    calendarWorkingDaysLine = createEmptyLine();
     minSalaryLabel = createLabel("Оклад: ");
     minSalaryValueLabel = createEmptyLabel();
     directorFeeLabel = createLabel("Доплата директора:");
     directorFeeValueLabel = createEmptyLabel();
     totalSalaryLabel = createLabel("Итоговая зарплата: ");
-    totalSalaryLine = createEmptyLine(200);
+    totalSalaryLine = createEmptyLine();
 
     calculateButton = createButton("Рассчитать");
     writeButton = createButton("Записать");
@@ -33,13 +33,18 @@ DirectorWindow::DirectorWindow(QWidget *parent): ReceiverWindow(parent)
     calendarWorkingDaysLayout = createPackedHLayout(calendarWorkingDaysLabel, calendarWorkingDaysLine);
     payFundLayout = createPackedHLayout(payFundRadio);
     minSalaryLayout = createPackedHLayout(minSalaryLabel, minSalaryValueLabel);
+    intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
+    penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
+    premiumLayout = createPackedHLayout(premiumLabel, premiumLine);
+    adjustmentLayout = createPackedHLayout(adjustmentLabel, adjustmentLine);
     directorFeeLayout = createPackedHLayout(directorFeeLabel, directorFeeValueLabel);
     totalSalaryLayout = createPackedHLayout(totalSalaryLabel, totalSalaryLine);
     calculateLayout = createButtonHLayout(calculateButton, writeButton);
     backLayout = createPackedHLayout(backButton);
 
     directorLayouts = {dateLayout, fullNameLayout, profitLayout, workingDaysLayout, calendarWorkingDaysLayout,
-                      payFundLayout, salaryPercentLayout, minSalaryLayout, directorFeeLayout, totalSalaryLayout, calculateLayout, backLayout};
+                      payFundLayout, salaryPercentLayout, minSalaryLayout, directorFeeLayout, intermediateSalaryLayout,
+                      penaltyLayout, premiumLayout, adjustmentLayout,totalSalaryLayout, calculateLayout, backLayout};
     directorLayout = createMainLayout(directorLayouts);
     directorWidget = createWidget(directorLayout);
     setCentralWidget(directorWidget);
@@ -56,13 +61,15 @@ void DirectorWindow::slotCalculateButtonClicked() {
     }
     else{    
         director = new Director(fullNameLine->text(), getValue(profitLine), getValue(workingDaysLine), getValue(calendarWorkingDaysLine),
-                                payFundRadio->isChecked());
+                                payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
         QString directorFeeValue = QString::number(director->getDirectorFee());
         QString salaryPercentValue = QString::number(director->calculateSalaryPercent());
         QString directorMinSalaryValue = QString::number(director->calculateMinSalary());
+        QString intermediateSalaryValue = QString::number(director->calculateIntermediateSalary());
         QString totalSalaryValue = QString::number(director->calculateTotalSalary());
         minSalaryValueLabel->setText(directorMinSalaryValue);
         directorFeeValueLabel->setText(directorFeeValue);
+        intermediateSalaryValueLabel->setText(intermediateSalaryValue);
         salaryPercentValueLabel->setText(salaryPercentValue);
         totalSalaryLine->setText(totalSalaryValue);
         totalSalaryLine->displayText();

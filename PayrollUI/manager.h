@@ -12,12 +12,11 @@ public:
 
     qreal calculateSellProfitPercent();
     qreal calculateMinSalary() override;
-    qreal calculateTotalSalary () override;
+    qreal calculateIntermediateSalary () override;
 
 private:
     qreal sellProfit;
-    const qreal managerPercent = 0.01;
-    const qreal vacationPayFundPercent = 0.1;
+    qreal managerPercent;
     qreal managerProfit;
     qreal minSalary;
 

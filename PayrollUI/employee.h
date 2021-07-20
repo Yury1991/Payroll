@@ -11,7 +11,8 @@ class Employee
     friend class Manager;
 public:
     Employee();
-    Employee(QString fullName, double minSalary, unsigned short workingDays, unsigned short calendarWorkingDays, bool isPayFund);
+    Employee(QString fullName, qreal minSalary, ushort workingDays, ushort calendarWorkingDays,
+             bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
     ~Employee();
 
     //Должность сотрудника
@@ -22,29 +23,38 @@ public:
     virtual void setFullName(const QString &str);
 
     //Расчет минимальной зарплаты/оклада
-    virtual double getMinSalary();
-    virtual void setMinSalary(double minSalary);
-    virtual double calculateMinSalary();
+    virtual qreal getMinSalary();
+    virtual void setMinSalary(qreal minSalary);
+    virtual qreal calculateMinSalary();
 
     //Управление отработанными днями
-    virtual unsigned short getWorkingDays();
-    virtual void setWorkingDays(int workingDays);
+    virtual ushort getWorkingDays();
+    virtual void setWorkingDays(ushort workingDays);
 
     //Управление рабочими днями
-    virtual unsigned short getCalendarWorkingDays();
-    virtual void setCalendarWorkingDays(unsigned short workingDays);
+    virtual ushort getCalendarWorkingDays();
+    virtual void setCalendarWorkingDays(ushort workingDays);
+
+    //Промежуточная зарплата
+    virtual qreal calculateIntermediateSalary();
 
     //Итоговая зарплата
-    virtual double getTotalSalary();
-    virtual void setTotalSalary( double totalSalary);
-    virtual double calculateTotalSalary();
+    virtual qreal getTotalSalary();
+    virtual void setTotalSalary(qreal totalSalary);
+    virtual qreal calculateTotalSalary();
 private:
     const QString position = "Окладчик"; // должность сотрудника
     QString fullName;                    //ФИО соттрудникаа
-    double minSalary;               // минимальный оклад
-    unsigned short workingDays;                // отработанные дни
-    unsigned short calendarWorkingDays;        // рабочие дни
-    double totalSalary = 0;             // итоговая зарплата
+    qreal minSalary;               // минимальный оклад
+    ushort workingDays;                // отработанные дни
+    ushort calendarWorkingDays;        // рабочие дни
+    qreal intermediateSalary;       //Промежуточная зарплата(до штрафов, премий, корректировки
+    qreal totalSalary;             // итоговая зарплата
+    qreal penalty;          //Штрафы
+    qreal premium;          //Премия
+    qreal adjustment;       //Корректировка
+
+
     bool isPayFund;
 };
 

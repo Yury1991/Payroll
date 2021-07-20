@@ -6,15 +6,19 @@ Director::Director(){
 
 }
 
-Director::Director(QString fullName, double profit,  unsigned short workingDays, unsigned short calendarWorkingDays, bool isPayFund){
+Director::Director(QString fullName, qreal profit,  unsigned short workingDays, unsigned short calendarWorkingDays,
+                   bool isPayFund, qreal penalty, qreal premium, qreal adjustment){
     this->fullName = fullName;
     this->profit = profit;
     this->workingDays = workingDays;
     this->calendarWorkingDays = calendarWorkingDays;
     this->isPayFund = isPayFund;
+    this->penalty = penalty;
+    this->premium = premium;
+    this->adjustment = adjustment;
 }
 
-double Director::calculateSalaryPercent(){
+qreal Director::calculateSalaryPercent(){
     salaryPercent = profit * 0.03;
     if(Director::getWorkingDays() == Director::getCalendarWorkingDays()){
         return salaryPercent;
@@ -25,22 +29,27 @@ double Director::calculateSalaryPercent(){
     }
 }
 
-double Director::getDirectorFee(){
+qreal Director::getDirectorFee(){
     return directorFee;
 }
 
-double Director::calculateTotalSalary(){
-    totalSalary = salaryPercent + directorFee + minSalary;
+qreal Director::calculateIntermediateSalary(){
+    intermediateSalary = minSalary + salaryPercent + directorFee;
     if(isPayFund == true){
-         totalSalary -= totalSalary * 0.1;
-         return totalSalary;
+         intermediateSalary -= intermediateSalary * 0.1;
+         return intermediateSalary;
     }
     else{
-       return totalSalary;
+       return intermediateSalary;
     }
 }
 
-double Director::calculateMinSalary(){
+qreal Director::calculateTotalSalary(){
+    totalSalary = (intermediateSalary - penalty + premium + adjustment);
+    return totalSalary;
+}
+
+qreal Director::calculateMinSalary(){
     if(Director::getWorkingDays() == Director::getCalendarWorkingDays()){
         return minSalary = 15000;
     }

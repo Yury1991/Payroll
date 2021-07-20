@@ -28,7 +28,7 @@ public:
      //Методы для создания элементов интерфейса
      QLabel *createLabel(const QString &str);
      QPushButton *createButton(const QString &str);
-     QLineEdit *createEmptyLine(const int &width);
+     QLineEdit *createEmptyLine();
      QLabel *createEmptyLabel();
      QLabel *createEmptyRightLabel();
      QString createDate();
@@ -57,6 +57,14 @@ private:
     QLineEdit *workingDaysLine;
     QLabel *calendarWorkingDaysLabel;
     QLineEdit *calendarWorkingDaysLine;
+    QLabel *intermediateSalaryLabel;
+    QLabel *intermediateSalaryValueLabel;
+    QLabel *penaltyLabel;
+    QLineEdit *penaltyLine;
+    QLabel *premiumLabel;
+    QLineEdit *premiumLine;
+    QLabel *adjustmentLabel;
+    QLineEdit *adjustmentLine;
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
 
@@ -76,6 +84,10 @@ private:
     QHBoxLayout *salaryLayout;
     QHBoxLayout *workingDaysLayout;
     QHBoxLayout *calendarWorkingDaysLayout;
+    QHBoxLayout *intermediateSalaryLayout;
+    QHBoxLayout *penaltyLayout;
+    QHBoxLayout *premiumLayout;
+    QHBoxLayout *adjustmentLayout;
     QHBoxLayout *payFundLayout;
     QHBoxLayout *totalSalaryLayout;
     QHBoxLayout *calculateLayout;

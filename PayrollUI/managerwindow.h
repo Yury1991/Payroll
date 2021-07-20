@@ -16,12 +16,17 @@ private:
     QLabel *managerProfitLabel;
     QLabel *managerProfitValueLabel;
     QRadioButton *payFundRadio;
+    QLabel *sellPercentLabel;
+    QRadioButton *fourPercent;
+    QRadioButton *sevenPercent;
 
 
     //Компоновка окна
     QHBoxLayout *sellProfitLayout;
     QHBoxLayout *managerProfitLayout;
     QHBoxLayout *payFundLayout;
+    QHBoxLayout *sellPercentLayout;
+    QHBoxLayout *percentButtonsLayout;
 
     //Вектор горизонтальных слоев
     QVector<QHBoxLayout*> managerLayouts;

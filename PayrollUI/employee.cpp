@@ -10,12 +10,16 @@ Employee::Employee()
     isPayFund = false;
 }
 
-Employee::Employee(QString fullName, double minSalary, unsigned short workingDays, unsigned short calendarWorkingDays, bool isPayFund){
+Employee::Employee(QString fullName, qreal minSalary, ushort workingDays, ushort calendarWorkingDays,
+                   bool isPayFund, qreal penalty, qreal premium, qreal adjustment){
     this->fullName = fullName;
     this->minSalary = minSalary;
     this->workingDays = workingDays;
     this->calendarWorkingDays = calendarWorkingDays;
     this->isPayFund = isPayFund;
+    this->penalty = penalty;
+    this->premium = premium;
+    this->adjustment = adjustment;
 }
 
 QString Employee::getPosition(){
@@ -29,49 +33,54 @@ void  Employee::setFullName(const QString &str){
     fullName = str;
 }
 
-unsigned short Employee::getWorkingDays(){
+ushort Employee::getWorkingDays(){
     return workingDays;
 }
-void Employee::setWorkingDays(int workingDays){
+void Employee::setWorkingDays(ushort workingDays){
     this->workingDays = workingDays;
 }
 
-unsigned short Employee::getCalendarWorkingDays(){
+ushort Employee::getCalendarWorkingDays(){
     return calendarWorkingDays;
 }
-void Employee::setCalendarWorkingDays(unsigned short calendarWorkingDays){
+void Employee::setCalendarWorkingDays(ushort calendarWorkingDays){
     this->calendarWorkingDays = calendarWorkingDays;
 }
 
-double Employee::getMinSalary(){
+qreal Employee::getMinSalary(){
     return minSalary;
 }
-void Employee::setMinSalary(double minSalary){
+void Employee::setMinSalary(qreal minSalary){
     this->minSalary = minSalary;
 }
-double Employee::calculateMinSalary(){
+qreal Employee::calculateMinSalary(){
     return minSalary;
 }
-double Employee::getTotalSalary(){
+qreal Employee::getTotalSalary(){
     return totalSalary;
 }
-void Employee::setTotalSalary( double totalSalary){
+void Employee::setTotalSalary(qreal totalSalary){
     this->totalSalary = totalSalary;
 }
-double Employee::calculateTotalSalary(){
+qreal Employee::calculateIntermediateSalary(){
     if(workingDays == calendarWorkingDays){
-        totalSalary = minSalary;       
+        intermediateSalary = minSalary;
     }
     else{
-        totalSalary = (minSalary * workingDays)/calendarWorkingDays;        
+        intermediateSalary = (minSalary * workingDays)/calendarWorkingDays;
     }
     if(isPayFund == true){
-        totalSalary -=  totalSalary* 0.1 ;
-        return totalSalary;
+        intermediateSalary -=  intermediateSalary* 0.1 ;
+        return intermediateSalary;
     }
     else{
-        return totalSalary;
+        return intermediateSalary;
     }
+}
+
+qreal Employee::calculateTotalSalary(){
+    totalSalary = (intermediateSalary - penalty + premium + adjustment);
+    return totalSalary;
 }
 
 Employee:: ~Employee(){

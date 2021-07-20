@@ -16,9 +16,9 @@ qreal Manager::calculateMinSalary(){
     return minSalary;
 }
 
-qreal Manager::calculateTotalSalary(){
-    totalSalary = managerProfit + minSalary;
-    return totalSalary;
+qreal Manager::calculateIntermediateSalary(){
+    intermediateSalary = managerProfit + minSalary;
+    return intermediateSalary;
 }
 
 Manager::~Manager(){

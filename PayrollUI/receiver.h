@@ -7,27 +7,31 @@ class Receiver : public Employee
     friend class Director;
 public:
     Receiver();    // Конструктор
-    Receiver(QString fullName, double profit, unsigned short workingDays, unsigned short calendarWorkingDays, bool isPayFund);
+    Receiver(QString fullName, qreal profit, ushort workingDays, ushort calendarWorkingDays,
+             bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
     ~Receiver();    //Деструктор
 
     //Расчет выработки
-    virtual double getProfit();
-    virtual void setProfit(double profit);
+    virtual qreal getProfit();
+    virtual void setProfit(qreal profit);
 
     //Расчет процента от выработки
-    virtual double getPercent();
-    virtual double calculateSalaryPercent();
+    virtual qreal getPercent();
+    virtual qreal calculateSalaryPercent();
 
     //Расчет минимальной зарплаты/оклада
-    double calculateMinSalary() override;
+    qreal calculateMinSalary() override;
+
+    //Расчет промежуточный зарплаты
+    qreal calculateIntermediateSalary() override;
 
     //Расчет итоговой зарплаты
-    double calculateTotalSalary() override;
+    qreal calculateTotalSalary() override;
  private:
-    const string position = "Приемщик"; //Должность сотрудника
-    double profit = 0;                  //Общая выработка предприятия
-    const double percent = 0.015;       //Процент от выработки
-    double salaryPercent = 0;           //Процент от выработки в денежном эквиваленте
+    const QString position = "Приемщик"; //Должность сотрудника
+    qreal profit;                  //Общая выработка предприятия
+    const qreal percent = 0.01;       //Процент от выработки
+    qreal salaryPercent;           //Процент от выработки в денежном эквиваленте
 };
 
 #endif // RECEIVER_H
