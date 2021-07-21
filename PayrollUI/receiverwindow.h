@@ -13,6 +13,8 @@ public:
     //Конструкторы
      ReceiverWindow(QWidget *parent = nullptr);
     ~ReceiverWindow();   
+
+
 public slots:
      void slotCalculateButtonClicked() override;
      void slotBackButtonClicked() override;
@@ -28,6 +30,8 @@ public slots:
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
 
+
+
     //Объект класса:
     Receiver *receiver;
     //  Компоновка окна
@@ -36,6 +40,8 @@ public slots:
     QHBoxLayout *salaryPercentLayout;
     QHBoxLayout *minSalaryLayout;
     QHBoxLayout *totalSalaryLayout;
+
+
     //Вектор горизонтальных слоев
     QVector<QHBoxLayout*> receiverLayouts;
     //Главный слой

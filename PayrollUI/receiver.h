@@ -17,11 +17,8 @@ public:
 
     //Расчет процента от выработки
     virtual qreal getPercent();
-    virtual qreal calculateSalaryPercent();
-
-    //Расчет минимальной зарплаты/оклада
-    qreal calculateMinSalary() override;
-
+    virtual qreal calculateSalaryPercent();   
+    virtual qreal calculateMinSalary();
     //Расчет промежуточный зарплаты
     qreal calculateIntermediateSalary() override;
 

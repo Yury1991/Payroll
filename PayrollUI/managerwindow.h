@@ -4,12 +4,19 @@
 #include "employeewindow.h"
 #include "receiverwindow.h"
 
+class Manager;
+
 class ManagerWindow : public ReceiverWindow
 {
     Q_OBJECT
 public:
     ManagerWindow();
     ~ManagerWindow();
+
+public slots:
+    void slotCalculateButtonClicked() override;
+    void slotBackButtonClicked() override;
+    void slotWriteButtonClicked() override;
 private:
     QLabel *sellProfitLabel;
     QLineEdit *sellProfitLine;
@@ -20,6 +27,10 @@ private:
     QRadioButton *fourPercent;
     QRadioButton *sevenPercent;
 
+    Manager *manager;
+
+
+    QGroupBox *gbPercent;
 
     //Компоновка окна
     QHBoxLayout *sellProfitLayout;
@@ -27,6 +38,7 @@ private:
     QHBoxLayout *payFundLayout;
     QHBoxLayout *sellPercentLayout;
     QHBoxLayout *percentButtonsLayout;
+    QHBoxLayout *gbLayout;
 
     //Вектор горизонтальных слоев
     QVector<QHBoxLayout*> managerLayouts;

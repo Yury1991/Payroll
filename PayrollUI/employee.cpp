@@ -53,9 +53,7 @@ qreal Employee::getMinSalary(){
 void Employee::setMinSalary(qreal minSalary){
     this->minSalary = minSalary;
 }
-qreal Employee::calculateMinSalary(){
-    return minSalary;
-}
+
 qreal Employee::getTotalSalary(){
     return totalSalary;
 }

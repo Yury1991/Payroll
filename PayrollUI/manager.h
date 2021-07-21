@@ -8,17 +8,20 @@ class Manager : public Employee
 
 public:
     Manager();
-    ~Manager();
+    Manager(QString fullName, qreal sellProfit, ushort workingDays, ushort calendarWorkingDays, qreal managerPercent,
+            bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
+    ~Manager( );
 
-    qreal calculateSellProfitPercent();
-    qreal calculateMinSalary() override;
+    //Методы
+    qreal calculateSellProfitPercent();   
     qreal calculateIntermediateSalary () override;
 
 private:
+    const qreal minSalary = 45000;
     qreal sellProfit;
     qreal managerPercent;
-    qreal managerProfit;
-    qreal minSalary;
+    qreal managerProfit;   
+    qreal totalSalary;
 
 
 };

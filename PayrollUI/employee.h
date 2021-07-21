@@ -25,7 +25,7 @@ public:
     //Расчет минимальной зарплаты/оклада
     virtual qreal getMinSalary();
     virtual void setMinSalary(qreal minSalary);
-    virtual qreal calculateMinSalary();
+
 
     //Управление отработанными днями
     virtual ushort getWorkingDays();

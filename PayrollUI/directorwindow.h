@@ -14,7 +14,7 @@ public:
 public slots:
     void slotCalculateButtonClicked() override;
     void slotBackButtonClicked() override;
-//    void slotWriteButtonClicked() override;
+    void slotWriteButtonClicked() override;
 private:
     QLabel *directorFeeLabel;
     QLabel *directorFeeValueLabel;

@@ -23,31 +23,33 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
     calendarWorkingDaysLabel = createLabel("Рабочие дни:");
     calendarWorkingDaysLine = createEmptyLine();
 
-    intermediateSalaryLabel = createLabel("Промежуточная зарплата");
+    intermediateSalaryLabel = createLabel("Промежуточная зарплата:");
     intermediateSalaryValueLabel = createLabel("0");
 
-    payFundRadio = new QRadioButton("10% в фонд отпускных");
 
-    penaltyLabel = createLabel("Штраф");
+
+    payFundRadio = new QRadioButton("10% в фонд отпускных");
+    optionsLayout = new QHBoxLayout;
+    optionsLayout->addWidget(payFundRadio);
+    gbOptions = createGroupBox(tr("Доп. условия:"), optionsLayout);
+
+    penaltyLabel = createLabel("Штраф:");
     penaltyLine = createEmptyLine();
 
-    premiumLabel = createLabel("Премия");
+    premiumLabel = createLabel("Премия:");
     premiumLine = createEmptyLine();
 
-    adjustmentLabel = createLabel("Корректировка ");
+    adjustmentLabel = createLabel("Корректировка:");
     adjustmentLine = createEmptyLine();
 
     totalSalaryLabel = createLabel("Итоговая зп:");
     totalSalaryLine = createEmptyLine();
 
 
-    calculateButton = createButton("Рассчитать");
-    writeButton = createButton("Записать");
+    calculateButton = createCalculateButton();
+    writeButton = createWriteButton();
+    backButton = createBackButton();
 
-    backButton = createButton("Назад");
-    connect(calculateButton, &QPushButton::clicked, this, &EmployeeWindow::slotCalculateButtonClicked);
-    connect(writeButton, &QPushButton::clicked, this, &EmployeeWindow::slotWriteButtonClicked);
-    connect(backButton, &QPushButton::clicked, this, &EmployeeWindow::slotBackButtonClicked);
 
     //Компоновка окна
     dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
@@ -55,15 +57,14 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
     salaryLayout = createPackedHLayout(salaryLabel, salaryLine);
     workingDaysLayout = createPackedHLayout(workingDaysLabel, workingDaysLine);
     calendarWorkingDaysLayout = createPackedHLayout(calendarWorkingDaysLabel, calendarWorkingDaysLine);
-    payFundLayout = createPackedHLayout(payFundRadio);
-    payFundLayout->setAlignment(Qt::AlignRight);
+    payFundLayout = createRightPackedHLayout(gbOptions);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
     premiumLayout = createPackedHLayout(premiumLabel, premiumLine);
     adjustmentLayout = createPackedHLayout(adjustmentLabel, adjustmentLine);
     totalSalaryLayout = createPackedHLayout(totalSalaryLabel, totalSalaryLine);
     calculateLayout = createButtonHLayout(calculateButton, writeButton);
-    backLayout= createPackedHLayout(backButton);
+    backLayout= createLeftPackedHLayout(backButton);
 
     employeeLayouts = {dateLayout, fullNameLayout, salaryLayout, workingDaysLayout, calendarWorkingDaysLayout,
                        payFundLayout, intermediateSalaryLayout, penaltyLayout, premiumLayout, adjustmentLayout,
@@ -82,9 +83,27 @@ QLabel *EmployeeWindow::createLabel(const QString &str){
 
 QPushButton *EmployeeWindow::createButton(const QString &str){
     QPushButton *button = new QPushButton(str);    
-
     return button;
 }
+QPushButton *EmployeeWindow::createBackButton(){
+    QPushButton *button = new QPushButton("Назад");
+    connect(button, &QPushButton::clicked, this, &EmployeeWindow::slotBackButtonClicked);
+    return button;
+}
+
+QPushButton *EmployeeWindow::createCalculateButton(){
+    QPushButton *button = new QPushButton("Рассчитать");
+    connect(button, &QPushButton::clicked, this, &EmployeeWindow::slotCalculateButtonClicked);
+    return button;
+}
+
+QPushButton *EmployeeWindow::createWriteButton(){
+    QPushButton *button = new QPushButton("Записать");
+    connect(button, &QPushButton::clicked, this, &EmployeeWindow::slotWriteButtonClicked);
+    return button;
+}
+
+
 
 QLineEdit *EmployeeWindow::createEmptyLine(){
     QLineEdit *line = new QLineEdit(" ");
@@ -109,15 +128,34 @@ QString EmployeeWindow::createDate(){
     strDate = date.toString();
     return strDate;
 }
-QHBoxLayout *EmployeeWindow::createPackedHLayout(QWidget *pwgt1){
+QHBoxLayout *EmployeeWindow::createRightPackedHLayout(QWidget *pwgt1){
     QHBoxLayout *hlayout = new QHBoxLayout;
-    hlayout->addWidget(pwgt1, 0, Qt::AlignCenter);
+    hlayout->addWidget(pwgt1, 0, Qt::AlignRight);
+    return hlayout;
+}
+
+QHBoxLayout *EmployeeWindow::createLeftPackedHLayout(QWidget *pwgt1){
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(pwgt1, 0, Qt::AlignLeft);
     return hlayout;
 }
 
 QHBoxLayout *EmployeeWindow::createPackedHLayout(QWidget *pwgt1, QWidget *pwgt2){
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(pwgt1, 0, Qt::AlignLeft);
+    hlayout->addWidget(pwgt2, 0, Qt::AlignRight);
+    return hlayout;
+}
+
+QHBoxLayout *EmployeeWindow::createCentralPackedHLayout(QWidget *pwgt1, QWidget *pwgt2){
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(pwgt1, 0, Qt::AlignCenter);
+    hlayout->addWidget(pwgt2, 0, Qt::AlignCenter);
+    return hlayout;
+}
+QHBoxLayout *EmployeeWindow::createRightPackedHLayout(QWidget *pwgt1, QWidget *pwgt2){
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(pwgt1, 0, Qt::AlignRight);
     hlayout->addWidget(pwgt2, 0, Qt::AlignRight);
     return hlayout;
 }
@@ -141,6 +179,13 @@ QGridLayout *EmployeeWindow::createMainLayout(QVector<QHBoxLayout*> layouts){
     layouts.clear();
     employeeLayouts.clear();
     return mainLayout;
+}
+
+QGroupBox *EmployeeWindow::createGroupBox(QString const &str, QHBoxLayout *hlayout){
+    QGroupBox *gb = new QGroupBox(str);
+    gb->setAlignment(Qt::AlignCenter);
+    gb->setLayout(hlayout);
+    return gb;
 }
 
 QWidget *EmployeeWindow::createWidget(QGridLayout *layout){
@@ -171,6 +216,12 @@ qreal EmployeeWindow::getValue(QLineEdit *line){
     return value;
 }
 
+ushort EmployeeWindow::getDays(QLineEdit *line){
+    ushort value;
+    value = line->text().toUShort();
+    return value;
+}
+
 //Реализация слотов:
 
 void EmployeeWindow::slotCalculateButtonClicked(){
@@ -180,7 +231,7 @@ void EmployeeWindow::slotCalculateButtonClicked(){
         totalSalaryLine->displayText();
     }
     else{
-        employee = new Employee(fullNameLine->text(), getValue(salaryLine), getValue(workingDaysLine), getValue(calendarWorkingDaysLine),
+        employee = new Employee(fullNameLine->text(), getValue(salaryLine), getDays(workingDaysLine), getDays(calendarWorkingDaysLine),
                                 payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
                 QString intermediateSalary = QString::number(employee->calculateIntermediateSalary());
         QString totalSalary = QString::number(employee->calculateTotalSalary());

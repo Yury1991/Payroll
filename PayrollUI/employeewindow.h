@@ -23,18 +23,27 @@ public:
      QString *getButtonName();
      void setButtonName(QString buttonName);
   //   unsigned short getValue(QLineEdit *line);
+     //Считывание данных со строк
      qreal getValue(QLineEdit *line);
+     ushort getDays(QLineEdit *line);
 
      //Методы для создания элементов интерфейса
      QLabel *createLabel(const QString &str);
      QPushButton *createButton(const QString &str);
+     QPushButton *createBackButton();
+     QPushButton *createCalculateButton();
+     QPushButton *createWriteButton();
      QLineEdit *createEmptyLine();
      QLabel *createEmptyLabel();
      QLabel *createEmptyRightLabel();
      QString createDate();
      QHBoxLayout *createButtonHLayout(QWidget *pwgt1, QWidget *pwgt2);
-     QHBoxLayout *createPackedHLayout(QWidget *pwgt1);
+     QHBoxLayout *createRightPackedHLayout(QWidget *pwgt1);
+     QHBoxLayout *createLeftPackedHLayout(QWidget *pwgt1);
      QHBoxLayout *createPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
+     QHBoxLayout *createCentralPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
+     QHBoxLayout *createRightPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
+     QGroupBox *createGroupBox(QString const &str, QHBoxLayout *hlayout);
      QWidget *createWidget(QGridLayout *layout);
      QGridLayout *createMainLayout(QVector<QHBoxLayout*> layouts);
 
@@ -68,6 +77,8 @@ private:
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
 
+    QGroupBox *gbOptions;
+
     QRadioButton *payFundRadio;
 
     QPushButton *calculateButton;
@@ -92,6 +103,7 @@ private:
     QHBoxLayout *totalSalaryLayout;
     QHBoxLayout *calculateLayout;
     QHBoxLayout *backLayout;
+    QHBoxLayout *optionsLayout;
     //Вектор горизонтальных слоев:
     QVector<QHBoxLayout*> employeeLayouts;
     //Главный слой
