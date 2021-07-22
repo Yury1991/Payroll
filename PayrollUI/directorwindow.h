@@ -18,7 +18,7 @@ public slots:
 private:
     QLabel *directorFeeLabel;
     QLabel *directorFeeValueLabel;
-
+    //Объект класса
     Director *director;
     //Компоновка окна
     QHBoxLayout *directorFeeLayout;

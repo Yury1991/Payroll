@@ -7,7 +7,7 @@ class Receiver : public Employee
     friend class Director;
 public:
     Receiver();    // Конструктор
-    Receiver(QString fullName, qreal profit, ushort workingDays, ushort calendarWorkingDays,
+    Receiver(QString fullName, qreal profit, ushort wDays, ushort allDays,
              bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
     ~Receiver();    //Деструктор
 

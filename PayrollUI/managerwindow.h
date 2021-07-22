@@ -34,8 +34,8 @@ private:
 
     //Компоновка окна
     QHBoxLayout *sellProfitLayout;
-    QHBoxLayout *managerProfitLayout;
-    QHBoxLayout *payFundLayout;
+
+    QHBoxLayout *managerProfitLayout;    
     QHBoxLayout *sellPercentLayout;
     QHBoxLayout *percentButtonsLayout;
     QHBoxLayout *gbLayout;

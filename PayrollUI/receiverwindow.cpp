@@ -8,45 +8,20 @@
 ReceiverWindow::ReceiverWindow(QWidget*parent)
     : EmployeeWindow(parent)
 {
-    dateLabel = createLabel("Дата заполнения:");
-    dateValueLabel = createLabel(createDate());
-
-    fullNameLabel = createLabel("ФИО сотрудника:");
-    fullNameLine = createEmptyLine();
-
     profitLabel = createLabel("Выработка предприятия:");
     profitLine = createEmptyLine();
-
-    workingDaysLabel = createLabel("Отработанные дни:");
-    workingDaysLine = createEmptyLine();
-
-    calendarWorkingDaysLabel = createLabel("Рабочие дни");
-    calendarWorkingDaysLine = createEmptyLine();
-
-
-
     salaryPercentLabel = createLabel("Процент от выработки: ");
     salaryPercentValueLabel  = new QLabel("");
-
     minSalaryLabel = createLabel("Оклад: ");
     minSalaryValueLabel = createEmptyLabel();
-
-    totalSalaryLabel = createLabel("Итоговая зарплата: ");
-    totalSalaryLine = createEmptyLine();
-
-    calculateButton = createCalculateButton();
-    backButton = createBackButton();
-    writeButton = createWriteButton();
-
     //Компоновка окна
-
     dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
     fullNameLayout = createPackedHLayout(fullNameLabel, fullNameLine);
     profitLayout = createPackedHLayout(profitLabel, profitLine);
     salaryPercentLayout = createPackedHLayout(salaryPercentLabel, salaryPercentValueLabel);
-    workingDaysLayout = createPackedHLayout(workingDaysLabel, workingDaysLine);
-    calendarWorkingDaysLayout = createPackedHLayout(calendarWorkingDaysLabel, calendarWorkingDaysLine);
-    payFundLayout = createRightPackedHLayout(gbOptions);
+    wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
+    allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
+    payFundLayout = createRightPackedHLayout(optionsBox);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
     premiumLayout = createPackedHLayout(premiumLabel, premiumLine);
@@ -56,7 +31,7 @@ ReceiverWindow::ReceiverWindow(QWidget*parent)
     calculateLayout = createButtonHLayout(calculateButton, writeButton);
     backLayout = createLeftPackedHLayout(backButton);
 
-    receiverLayouts = {dateLayout, fullNameLayout, profitLayout,  workingDaysLayout, calendarWorkingDaysLayout,
+    receiverLayouts = {dateLayout, fullNameLayout, profitLayout,  wDaysLayout, allDaysLayout,
                        payFundLayout,intermediateSalaryLayout, penaltyLayout, premiumLayout, adjustmentLayout, salaryPercentLayout, minSalaryLayout,
                        totalSalaryLayout, calculateLayout, backLayout};
 
@@ -69,15 +44,15 @@ ReceiverWindow::ReceiverWindow(QWidget*parent)
 
 // Реализация перегрузки слотов:
 void ReceiverWindow::slotCalculateButtonClicked(){
-    if((getValue(workingDaysLine) > getValue(calendarWorkingDaysLine)) || (getValue(profitLine) == 0)
-            || (getValue(calendarWorkingDaysLine) == 0)){
+    if((getValue(wDaysLine) > getValue(allDaysLine)) || (getValue(profitLine) == 0)
+            || (getValue(allDaysLine) == 0)){
         totalSalaryLine->setText(inputError);
         totalSalaryLine->displayText();
         minSalaryValueLabel->setText("");
         salaryPercentValueLabel->setText("");
     }
     else{
-        receiver = new Receiver(fullNameLine->text(), getValue(profitLine), getDays(workingDaysLine), getDays(calendarWorkingDaysLine),
+        receiver = new Receiver(fullNameLine->text(), getValue(profitLine), getDays(wDaysLine), getDays(allDaysLine),
                                 payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
         QString salaryPercentValue = QString::number(receiver->calculateSalaryPercent());
         QString minSalaryValue = QString::number(receiver->calculateMinSalary());
@@ -91,7 +66,7 @@ void ReceiverWindow::slotCalculateButtonClicked(){
     }
 }
 void ReceiverWindow::slotWriteButtonClicked(){
-    receiver = new Receiver(fullNameLine->text(), getValue(profitLine), getValue(workingDaysLine), getValue(calendarWorkingDaysLine),
+    receiver = new Receiver(fullNameLine->text(), getValue(profitLine), getValue(wDaysLine), getValue(allDaysLine),
                             payFundRadio->isChecked(),getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
 
     QString salaryPercentValue = QString::number(receiver->calculateSalaryPercent());
@@ -99,8 +74,8 @@ void ReceiverWindow::slotWriteButtonClicked(){
     QString totalSalaryValue = QString::number(receiver->calculateTotalSalary());
 
 
-    if((getValue(workingDaysLine) > getValue(calendarWorkingDaysLine)) || (getValue(salaryLine) == 0)
-        || (getValue(calendarWorkingDaysLine) == 0)){
+    if((getValue(wDaysLine) > getValue(allDaysLine)) || (getValue(salaryLine) == 0)
+        || (getValue(allDaysLine) == 0)){
         totalSalaryLine->setText(inputError);
         totalSalaryLine->displayText();
     }

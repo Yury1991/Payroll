@@ -4,8 +4,8 @@ Employee::Employee()
 {
     fullName = "Без имени";
     minSalary = 0;       // минимальный оклад
-    workingDays = 0;            // отработанные дни
-    calendarWorkingDays = 0;    // календарные рабочие дни
+    wDays = 0;            // отработанные дни
+    allDays = 0;    // календарные рабочие дни
     totalSalary = 0;             // итоговая зарплата
     isPayFund = false;
 }
@@ -14,8 +14,8 @@ Employee::Employee(QString fullName, qreal minSalary, ushort workingDays, ushort
                    bool isPayFund, qreal penalty, qreal premium, qreal adjustment){
     this->fullName = fullName;
     this->minSalary = minSalary;
-    this->workingDays = workingDays;
-    this->calendarWorkingDays = calendarWorkingDays;
+    this->wDays = workingDays;
+    this->allDays = calendarWorkingDays;
     this->isPayFund = isPayFund;
     this->penalty = penalty;
     this->premium = premium;
@@ -34,17 +34,17 @@ void  Employee::setFullName(const QString &str){
 }
 
 ushort Employee::getWorkingDays(){
-    return workingDays;
+    return wDays;
 }
 void Employee::setWorkingDays(ushort workingDays){
-    this->workingDays = workingDays;
+    this->wDays = workingDays;
 }
 
 ushort Employee::getCalendarWorkingDays(){
-    return calendarWorkingDays;
+    return allDays;
 }
 void Employee::setCalendarWorkingDays(ushort calendarWorkingDays){
-    this->calendarWorkingDays = calendarWorkingDays;
+    this->allDays = calendarWorkingDays;
 }
 
 qreal Employee::getMinSalary(){
@@ -61,11 +61,11 @@ void Employee::setTotalSalary(qreal totalSalary){
     this->totalSalary = totalSalary;
 }
 qreal Employee::calculateIntermediateSalary(){
-    if(workingDays == calendarWorkingDays){
+    if(wDays == allDays){
         intermediateSalary = minSalary;
     }
     else{
-        intermediateSalary = (minSalary * workingDays)/calendarWorkingDays;
+        intermediateSalary = (minSalary * wDays)/allDays;
     }
     if(isPayFund == true){
         intermediateSalary -=  intermediateSalary* 0.1 ;

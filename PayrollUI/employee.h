@@ -9,9 +9,10 @@ class Employee
     friend class Receiver;
     friend class Director;
     friend class Manager;
+    friend class Master;
 public:
     Employee();
-    Employee(QString fullName, qreal minSalary, ushort workingDays, ushort calendarWorkingDays,
+    Employee(QString fullName, qreal minSalary, ushort wDays, ushort allDays,
              bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
     ~Employee();
 
@@ -29,11 +30,11 @@ public:
 
     //Управление отработанными днями
     virtual ushort getWorkingDays();
-    virtual void setWorkingDays(ushort workingDays);
+    virtual void setWorkingDays(ushort wDays);
 
     //Управление рабочими днями
     virtual ushort getCalendarWorkingDays();
-    virtual void setCalendarWorkingDays(ushort workingDays);
+    virtual void setCalendarWorkingDays(ushort wDays);
 
     //Промежуточная зарплата
     virtual qreal calculateIntermediateSalary();
@@ -46,8 +47,8 @@ private:
     const QString position = "Окладчик"; // должность сотрудника
     QString fullName;                    //ФИО соттрудникаа
     qreal minSalary;               // минимальный оклад
-    ushort workingDays;                // отработанные дни
-    ushort calendarWorkingDays;        // рабочие дни
+    ushort wDays;                // отработанные дни
+    ushort allDays;        // рабочие дни
     qreal intermediateSalary;       //Промежуточная зарплата(до штрафов, премий, корректировки
     qreal totalSalary;             // итоговая зарплата
     qreal penalty;          //Штрафы

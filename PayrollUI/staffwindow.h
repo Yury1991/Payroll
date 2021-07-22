@@ -18,7 +18,7 @@ public slots:
     void slotEmployeeButtonClicked();
     void slotReceiverButtonClicked();
     void slotDirectorButtonClicked();
-  /*void slotMasterButtonClicked();*/
+    void slotMasterButtonClicked();
     void slotManagerButtonClicked();
     void slotBackButtonClicked();
 private:

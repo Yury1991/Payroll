@@ -10,33 +10,31 @@ class EmployeeWindow : public QMainWindow
     friend class ReceiverWindow;
     friend class DirectorWindow;
     friend class ManagerWindow;
-
+    friend class MasterWindow;
     Q_OBJECT
 public:
     //Конструкторы:
     EmployeeWindow(QWidget *parent = nullptr);
     ~EmployeeWindow();
 
-     //Методы доступа:
-     QHBoxLayout *getHBoxLayout(QHBoxLayout *getHBoxLayout);
-     QWidget *getWidget();
-     QString *getButtonName();
-     void setButtonName(QString buttonName);
-  //   unsigned short getValue(QLineEdit *line);
-     //Считывание данных со строк
-     qreal getValue(QLineEdit *line);
-     ushort getDays(QLineEdit *line);
+    //Функциональные методы:
+     QString createDate();
 
-     //Методы для создания элементов интерфейса
+     //Считывание данных со строк:
+     qreal getValue(QLineEdit *line);       //считывание данных типа qreal/double  - денежные значения
+     ushort getDays(QLineEdit *line);       //считывание данных типа ushort  - дни календаря
+
+     //Методы для создания элементов интерфейса:
      QLabel *createLabel(const QString &str);
-     QPushButton *createButton(const QString &str);
+     QLabel *createEmptyLabel();
+     QLabel *createEmptyRightLabel();
      QPushButton *createBackButton();
      QPushButton *createCalculateButton();
      QPushButton *createWriteButton();
      QLineEdit *createEmptyLine();
-     QLabel *createEmptyLabel();
-     QLabel *createEmptyRightLabel();
-     QString createDate();
+
+
+     // Создание компоновок:
      QHBoxLayout *createButtonHLayout(QWidget *pwgt1, QWidget *pwgt2);
      QHBoxLayout *createRightPackedHLayout(QWidget *pwgt1);
      QHBoxLayout *createLeftPackedHLayout(QWidget *pwgt1);
@@ -44,28 +42,25 @@ public:
      QHBoxLayout *createCentralPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
      QHBoxLayout *createRightPackedHLayout(QWidget *pwgt1, QWidget *pwgt2);
      QGroupBox *createGroupBox(QString const &str, QHBoxLayout *hlayout);
-     QWidget *createWidget(QGridLayout *layout);
      QGridLayout *createMainLayout(QVector<QHBoxLayout*> layouts);
-
+     //Создание виджета:
+     QWidget *createWidget(QGridLayout *layout);     
 public slots:
-//     virtual void slotButtonClicked();
      virtual void slotCalculateButtonClicked();
      virtual void slotBackButtonClicked();
      virtual void slotWriteButtonClicked();
-
 private:
-    QString strDate;
-  //  QDate date;
+    QString strDate;  
     QLabel *dateLabel;
     QLabel *dateValueLabel;
     QLabel *fullNameLabel;
     QLineEdit *fullNameLine;
     QLabel *salaryLabel;
     QLineEdit *salaryLine;
-    QLabel *workingDaysLabel;
-    QLineEdit *workingDaysLine;
-    QLabel *calendarWorkingDaysLabel;
-    QLineEdit *calendarWorkingDaysLine;
+    QLabel *wDaysLabel;
+    QLineEdit *wDaysLine;
+    QLabel *allDaysLabel;
+    QLineEdit *allDaysLine;
     QLabel *intermediateSalaryLabel;
     QLabel *intermediateSalaryValueLabel;
     QLabel *penaltyLabel;
@@ -76,25 +71,20 @@ private:
     QLineEdit *adjustmentLine;
     QLabel *totalSalaryLabel;
     QLineEdit *totalSalaryLine;
-
-    QGroupBox *gbOptions;
-
+    QGroupBox *optionsBox;
     QRadioButton *payFundRadio;
-
     QPushButton *calculateButton;
     QPushButton *backButton;
     QPushButton *writeButton;
-    QString *buttonName;
-
     //Объект класса
     Employee *employee;
-    //Компоновка;
+    //Компоновка
     //Горизонтальные слои
     QHBoxLayout *dateLayout;
     QHBoxLayout *fullNameLayout;
     QHBoxLayout *salaryLayout;
-    QHBoxLayout *workingDaysLayout;
-    QHBoxLayout *calendarWorkingDaysLayout;
+    QHBoxLayout *wDaysLayout;
+    QHBoxLayout *allDaysLayout;
     QHBoxLayout *intermediateSalaryLayout;
     QHBoxLayout *penaltyLayout;
     QHBoxLayout *premiumLayout;
@@ -106,14 +96,12 @@ private:
     QHBoxLayout *optionsLayout;
     //Вектор горизонтальных слоев:
     QVector<QHBoxLayout*> employeeLayouts;
-    //Главный слой
+    //Главный слой:
     QGridLayout *employeeMainLayout;
-    //Виджет
+    //Виджет:
     QWidget *employeeWidget;
-
-    //Ошибка ввода
+    //Ошибка ввода:
     const QString inputError = " Указано неверное значение!";
-
 };
 
 #endif // EMPLOYEEWINDOW_H

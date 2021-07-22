@@ -7,14 +7,11 @@ class Receiver;
 
 class ReceiverWindow : public EmployeeWindow
 {
-    friend class DirectorWindow;
-    friend class ManagerWindow;
+    friend class DirectorWindow;    
 public:
     //Конструкторы
      ReceiverWindow(QWidget *parent = nullptr);
     ~ReceiverWindow();   
-
-
 public slots:
      void slotCalculateButtonClicked() override;
      void slotBackButtonClicked() override;
@@ -27,26 +24,18 @@ public slots:
     QLabel *salaryPercentValueLabel;
     QLabel *minSalaryLabel;
     QLabel *minSalaryValueLabel;
-    QLabel *totalSalaryLabel;
-    QLineEdit *totalSalaryLine;
-
-
-
     //Объект класса:
     Receiver *receiver;
     //  Компоновка окна
-    // Горизонталтные мслои
+    // Горизонталтная компонвка
     QHBoxLayout *profitLayout;
     QHBoxLayout *salaryPercentLayout;
     QHBoxLayout *minSalaryLayout;
-    QHBoxLayout *totalSalaryLayout;
-
-
-    //Вектор горизонтальных слоев
+    //Вектор горизонтальных слоев для данного объекта
     QVector<QHBoxLayout*> receiverLayouts;
-    //Главный слой
+    //Главный слой для данного объекта
     QGridLayout *receiverMainLayout;
-    //Виджет
+    //Виджет для данного объекта
     QWidget *receiverWidget;
 };
 

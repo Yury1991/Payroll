@@ -19,6 +19,8 @@ SOURCES += \
     mainwindow.cpp \
     manager.cpp \
     managerwindow.cpp \
+    master.cpp \
+    masterwindow.cpp \
     optionswindow.cpp \
     receiver.cpp \
     receiverwindow.cpp \
@@ -35,6 +37,8 @@ HEADERS += \
     mainwindow.h \
     manager.h \
     managerwindow.h \
+    master.h \
+    masterwindow.h \
     optionswindow.h \
     receiver.h \
     receiverwindow.h \

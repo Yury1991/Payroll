@@ -6,8 +6,8 @@ Receiver::Receiver(QString fullName, qreal profit,  unsigned short workingDays, 
                    bool isPayFund, qreal penalty, qreal premium, qreal adjustment){
     this->fullName = fullName;
     this->profit = profit;
-    this->workingDays = workingDays;
-    this->calendarWorkingDays = calendarWorkingDays;
+    this->wDays = workingDays;
+    this->allDays = calendarWorkingDays;
     this->isPayFund = isPayFund;
     this->penalty = penalty;
     this->premium = premium;

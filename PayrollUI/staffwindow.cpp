@@ -4,6 +4,7 @@
 #include "employeewindow.h"
 #include "directorwindow.h"
 #include "managerwindow.h"
+#include "masterwindow.h"
 
 
 StaffWindow::StaffWindow()
@@ -17,7 +18,7 @@ StaffWindow::StaffWindow()
     connect(employeeButton, &QPushButton::clicked, this, &StaffWindow::slotEmployeeButtonClicked);
     connect(receiverButton , &QPushButton::clicked, this, &StaffWindow::slotReceiverButtonClicked);
     connect(directorButton, &QPushButton::clicked, this, &StaffWindow::slotDirectorButtonClicked);
-  /*connect(masterButton, &QPushButton::clicked, this, &StaffWindow::slotMasterButtonClicked);*/
+    connect(masterButton, &QPushButton::clicked, this, &StaffWindow::slotMasterButtonClicked);
     connect(managerButton, &QPushButton::clicked, this, &StaffWindow::slotManagerButtonClicked);
     connect(backButton, &QPushButton::clicked, this, &StaffWindow::slotBackButtonClicked);
 
@@ -58,10 +59,15 @@ void StaffWindow::slotDirectorButtonClicked(){
     DirectorWindow *directorWindow = new DirectorWindow();
     directorWindow->show();
 }
+void StaffWindow::slotMasterButtonClicked(){
+    this->close();
+    MasterWindow *masterWindow = new MasterWindow();
+    masterWindow->show();
+}
 
 void StaffWindow::slotManagerButtonClicked(){
     this->close();
-    ManagerWindow *managerWindow = new ManagerWindow;
+    ManagerWindow *managerWindow = new ManagerWindow();
     managerWindow->show();
 }
 void StaffWindow::slotBackButtonClicked(){

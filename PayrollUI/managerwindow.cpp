@@ -4,54 +4,39 @@
 
 ManagerWindow::ManagerWindow()
 {
-    dateLabel = createLabel("Дата заполнения:");
-    dateValueLabel = createLabel(createDate());
-    fullNameLabel = createLabel("ФИО сотрудника:");
-    fullNameLine = createEmptyLine();
+
     sellProfitLabel = createLabel("Прибыль от продаж: ");
-    sellProfitLine = createEmptyLine();
-    salaryLabel = createLabel("Оклад:");
-    salaryLine = createEmptyLine();
-    workingDaysLabel = createLabel("Отработанные дни:");
-    workingDaysLine = createEmptyLine();
-    calendarWorkingDaysLabel = createLabel("Рабочие дни:");
-    calendarWorkingDaysLine = createEmptyLine();
+    sellProfitLine = createEmptyLine();   
     managerProfitLabel = createLabel("Прибыль сотрудника:");
     managerProfitValueLabel = createEmptyLabel();
 
     fourPercent = new QRadioButton("4%");
     sevenPercent = new QRadioButton("7%");
 
-    totalSalaryLabel = createLabel("Итоговая зп:");
-    totalSalaryLine = createEmptyLine();
-
-    calculateButton = createCalculateButton();
-    writeButton = createWriteButton();
-    backButton = createBackButton();
-
+    salaryLine = new QLineEdit("45000");
 
     //Компоновка
     dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
     fullNameLayout = createPackedHLayout(fullNameLabel, fullNameLine);
     sellProfitLayout = createPackedHLayout(sellProfitLabel, sellProfitLine);
-    workingDaysLayout = createPackedHLayout(workingDaysLabel, workingDaysLine);
-    calendarWorkingDaysLayout = createPackedHLayout(calendarWorkingDaysLabel, calendarWorkingDaysLine);
-    payFundLayout = createRightPackedHLayout(gbOptions);
+    wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
+    allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
+    payFundLayout = createRightPackedHLayout(optionsBox);
     percentButtonsLayout = createRightPackedHLayout(fourPercent, sevenPercent);
     gbPercent = createGroupBox(tr("Процент менеджера:"), percentButtonsLayout);
     sellPercentLayout = createRightPackedHLayout(gbPercent);
-    minSalaryLayout = createPackedHLayout(minSalaryLabel, minSalaryValueLabel);
+    salaryLayout = createPackedHLayout(salaryLabel, salaryLine);
     managerProfitLayout = createPackedHLayout(managerProfitLabel, managerProfitValueLabel);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
     premiumLayout = createPackedHLayout(premiumLabel, premiumLine);
     adjustmentLayout = createPackedHLayout(adjustmentLabel, adjustmentLine);
     totalSalaryLayout = createPackedHLayout(totalSalaryLabel, totalSalaryLine);
-    calculateLayout = createPackedHLayout(calculateButton, writeButton);
+    calculateLayout = createButtonHLayout(calculateButton, writeButton);
     backLayout = createLeftPackedHLayout(backButton);
 
-    managerLayouts = {dateLayout, fullNameLayout, sellProfitLayout, workingDaysLayout, calendarWorkingDaysLayout,
-                     payFundLayout, sellPercentLayout, minSalaryLayout, managerProfitLayout, intermediateSalaryLayout, penaltyLayout,
+    managerLayouts = {dateLayout, fullNameLayout, sellProfitLayout, wDaysLayout, allDaysLayout,
+                     payFundLayout, sellPercentLayout, salaryLayout, managerProfitLayout, intermediateSalaryLayout, penaltyLayout,
                      premiumLayout, adjustmentLayout, totalSalaryLayout, calculateLayout, backLayout};
 
     managerMainLayout = createMainLayout(managerLayouts);
@@ -60,29 +45,16 @@ ManagerWindow::ManagerWindow()
     setWindowTitle("Расчет зарплаты менеджера");
 }
 void ManagerWindow::slotCalculateButtonClicked(){
-    if((getValue(workingDaysLine) > getValue(calendarWorkingDaysLine)) || ((getValue(calendarWorkingDaysLine) == 0)))
+    if((getValue(wDaysLine) > getValue(allDaysLine)) || ((getValue(allDaysLine) == 0)))
     {
         totalSalaryLine->setText(inputError);
         totalSalaryLine->displayText();
     }
-    else{
-        qreal percent = 0;
-        if(fourPercent->isChecked()){
-            percent = 0.04;
-        }
-        else{
-            percent = 0.07;
-        }
-        manager = new Manager(fullNameLine->text(), getValue(sellProfitLine), getDays(workingDaysLine), getDays(calendarWorkingDaysLine), percent,
+    else{       
+        manager = new Manager(fullNameLine->text(), getValue(sellProfitLine), getDays(wDaysLine), getDays(allDaysLine), fourPercent->isChecked(),
                               payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
-        /*Manager(QString fullName, qreal sellProfit, ushort workingDays, ushort calendarWorkingDays, qreal managerPercent,
-            bool isPayFund, qreal penalty, qreal premium, qreal adjustment);*/
-        QString managerPercentValue = QString::number(manager->calculateSellProfitPercent());
-        QString managerIntermediateSalary = QString::number(manager->calculateIntermediateSalary());
-        QString managerTotalSalary = QString::number(manager->calculateTotalSalary());
-        managerProfitValueLabel->setText(managerPercentValue);
-        intermediateSalaryValueLabel->setText(managerIntermediateSalary);
-        totalSalaryLine->setText(managerTotalSalary);
+        QString managerProfit = QString::number(manager->calculateManagerProfit());
+        managerProfitValueLabel->setText(managerProfit);
     }
 }
 

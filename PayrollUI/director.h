@@ -8,7 +8,7 @@ class Director : public Receiver{
 public:
     //Конструктор
     Director();
-    Director(QString fullName, qreal profit, ushort workingDays, ushort calendarWorkingDays,
+    Director(QString fullName, qreal profit, ushort wDays, ushort allDays,
              bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
     ~Director();
 
