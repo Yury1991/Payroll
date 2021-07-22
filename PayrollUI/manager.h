@@ -7,10 +7,9 @@ class Manager : public Employee
 {
 public:
     Manager();
-    Manager(QString fullName, qreal sellProfit, ushort wDays, ushort allDays, bool isFourPercent,
-            bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
+    Manager(QString fullName, qreal sellProfit, ushort wDays, ushort allDays, bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
     ~Manager( );
-
+    qreal getManagerProfit();
     //Методы
     qreal calculateManagerProfit();
     qreal calculateIntermediateSalary () override;

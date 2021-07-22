@@ -6,12 +6,14 @@
 
 class Manager;
 
-class ManagerWindow : public ReceiverWindow
+class ManagerWindow : public EmployeeWindow
 {
     Q_OBJECT
 public:
     ManagerWindow();
     ~ManagerWindow();
+
+
 
 public slots:
     void slotCalculateButtonClicked() override;
@@ -20,12 +22,14 @@ public slots:
 private:
     QLabel *sellProfitLabel;
     QLineEdit *sellProfitLine;
+    QLabel *minSalaryLabel;
+    QLabel *minSalaryValueLabel;
     QLabel *managerProfitLabel;
     QLabel *managerProfitValueLabel;
     QRadioButton *payFundRadio;
     QLabel *sellPercentLabel;
-    QRadioButton *fourPercent;
-    QRadioButton *sevenPercent;
+    QRadioButton *rbFourPercent;
+    QRadioButton *rbSevenPercent;
 
     Manager *manager;
 
@@ -34,11 +38,11 @@ private:
 
     //Компоновка окна
     QHBoxLayout *sellProfitLayout;
-
+    QHBoxLayout *minSalaryLayout;
     QHBoxLayout *managerProfitLayout;    
     QHBoxLayout *sellPercentLayout;
     QHBoxLayout *percentButtonsLayout;
-    QHBoxLayout *gbLayout;
+
 
     //Вектор горизонтальных слоев
     QVector<QHBoxLayout*> managerLayouts;

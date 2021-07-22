@@ -4,16 +4,15 @@
 
 ManagerWindow::ManagerWindow()
 {
-
     sellProfitLabel = createLabel("Прибыль от продаж: ");
     sellProfitLine = createEmptyLine();   
     managerProfitLabel = createLabel("Прибыль сотрудника:");
     managerProfitValueLabel = createEmptyLabel();
 
-    fourPercent = new QRadioButton("4%");
-    sevenPercent = new QRadioButton("7%");
-
-    salaryLine = new QLineEdit("45000");
+    rbFourPercent = new QRadioButton("4%");
+    rbSevenPercent = new QRadioButton("7%");
+    minSalaryLabel = createLabel("Оклад:");
+    minSalaryValueLabel = createLabel("45000");
 
     //Компоновка
     dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
@@ -22,10 +21,10 @@ ManagerWindow::ManagerWindow()
     wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
     allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
     payFundLayout = createRightPackedHLayout(optionsBox);
-    percentButtonsLayout = createRightPackedHLayout(fourPercent, sevenPercent);
+    percentButtonsLayout = createRightPackedHLayout(rbFourPercent, rbSevenPercent);
     gbPercent = createGroupBox(tr("Процент менеджера:"), percentButtonsLayout);
     sellPercentLayout = createRightPackedHLayout(gbPercent);
-    salaryLayout = createPackedHLayout(salaryLabel, salaryLine);
+    minSalaryLayout = createPackedHLayout(minSalaryLabel, minSalaryValueLabel);
     managerProfitLayout = createPackedHLayout(managerProfitLabel, managerProfitValueLabel);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
@@ -36,7 +35,7 @@ ManagerWindow::ManagerWindow()
     backLayout = createLeftPackedHLayout(backButton);
 
     managerLayouts = {dateLayout, fullNameLayout, sellProfitLayout, wDaysLayout, allDaysLayout,
-                     payFundLayout, sellPercentLayout, salaryLayout, managerProfitLayout, intermediateSalaryLayout, penaltyLayout,
+                     payFundLayout, /*sellPercentLayout,*/ minSalaryLayout, managerProfitLayout, intermediateSalaryLayout, penaltyLayout,
                      premiumLayout, adjustmentLayout, totalSalaryLayout, calculateLayout, backLayout};
 
     managerMainLayout = createMainLayout(managerLayouts);
@@ -51,10 +50,10 @@ void ManagerWindow::slotCalculateButtonClicked(){
         totalSalaryLine->displayText();
     }
     else{       
-        manager = new Manager(fullNameLine->text(), getValue(sellProfitLine), getDays(wDaysLine), getDays(allDaysLine), fourPercent->isChecked(),
+        manager = new Manager(fullNameLine->text(), getValue(sellProfitLine), getDays(wDaysLine), getDays(allDaysLine),
                               payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
         QString managerProfit = QString::number(manager->calculateManagerProfit());
-        managerProfitValueLabel->setText(managerProfit);
+        managerProfitValueLabel->setText(managerProfit);        
     }
 }
 
