@@ -35,7 +35,6 @@ qreal Receiver::calculateSalaryPercent(){
     }
 }
 
-
 qreal Receiver::calculateMinSalary(){
         if(profit <= 2000000){
             Receiver::setMinSalary(10000);

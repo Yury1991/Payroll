@@ -14,6 +14,7 @@ public:
     qreal calculateIntermediateSalary() override;
     qreal calculateTotalSalary() override;
 private:
+    const QString position = "Мастер";
     qreal masterProd;
     qreal masterProdProfit;
     const qreal firstMinProfit = 40000;

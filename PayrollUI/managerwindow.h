@@ -10,11 +10,8 @@ class ManagerWindow : public EmployeeWindow
 {
     Q_OBJECT
 public:
-    ManagerWindow();
+    ManagerWindow(QWidget *parent = nullptr);
     ~ManagerWindow();
-
-
-
 public slots:
     void slotCalculateButtonClicked() override;
     void slotBackButtonClicked() override;

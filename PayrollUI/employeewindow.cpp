@@ -27,8 +27,8 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
     intermediateSalaryValueLabel = createLabel("0");
 
     payFundRadio = new QRadioButton("10% в фонд отпускных");
-    optionsLayout = new QHBoxLayout;
-    optionsLayout->addWidget(payFundRadio);
+    optionsLayout = createRightPackedHLayout(payFundRadio);
+  //  optionsLayout->addWidget(payFundRadio);
     optionsBox = createGroupBox(tr("Доп. условия:"), optionsLayout);
 
     penaltyLabel = createLabel("Штраф:");
@@ -43,11 +43,9 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
     totalSalaryLabel = createLabel("Итоговая зп:");
     totalSalaryLine = createEmptyLine();
 
-
     calculateButton = createCalculateButton();
     writeButton = createWriteButton();
     backButton = createBackButton();
-
 
     //Компоновка окна
     dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
@@ -222,12 +220,11 @@ void EmployeeWindow::slotCalculateButtonClicked(){
     else{
         employee = new Employee(fullNameLine->text(), getValue(salaryLine), getDays(wDaysLine), getDays(allDaysLine),
                                 payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
-                QString intermediateSalary = QString::number(employee->calculateIntermediateSalary());
+        QString intermediateSalary = QString::number(employee->calculateIntermediateSalary());
         QString totalSalary = QString::number(employee->calculateTotalSalary());
         intermediateSalaryValueLabel->setText(intermediateSalary);
         totalSalaryLine->setText(totalSalary);
         totalSalaryLine->displayText();
-
     }
 }
 

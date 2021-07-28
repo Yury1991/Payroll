@@ -6,20 +6,25 @@
 class Manager : public Employee
 {
 public:
+    //Конструктор:
     Manager();
-    Manager(QString fullName, qreal sellProfit, ushort wDays, ushort allDays, bool isPayFund, qreal penalty, qreal premium, qreal adjustment);
-    ~Manager( );
+    Manager(QString fullName, qreal sellProfit, ushort wDays, ushort allDays,
+            bool isPayFund, bool isFourPercent, qreal penalty, qreal premium, qreal adjustment);
+
+    ~Manager();
+    //Методы доступа:
     qreal getManagerProfit();
+    void setManagerProfit(qreal managerProfit);
     //Методы
     qreal calculateManagerProfit();
     qreal calculateIntermediateSalary () override;
     qreal calculateTotalSalary() override;
 private:
+    const QString position = " Менеджер"; //Должность сотрудника
     const qreal minSalary = 45000;
-    qreal sellProfit;   
     bool isFourPercent;
-    qreal managerProfit;   
-    qreal totalSalary;
+    qreal sellProfit;       
+    qreal managerProfit;
 };
 
 #endif // MANAGER_H
