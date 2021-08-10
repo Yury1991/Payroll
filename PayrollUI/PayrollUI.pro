@@ -16,7 +16,7 @@ SOURCES += \
     employeewindow.cpp \
     errorwindow.cpp \
     fileprogress.cpp \
-    logmessage.cpp \
+    logcategories.cpp \
     main.cpp \
     mainwindow.cpp \
     manager.cpp \
@@ -36,7 +36,7 @@ HEADERS += \
     employeewindow.h \
     errorwindow.h \
     fileprogress.h \
-    logmessage.h \
+    logcategories.h \
     mainwindow.h \
     manager.h \
     managerwindow.h \
