@@ -33,7 +33,6 @@ public:
      QPushButton *createWriteButton();
      QLineEdit *createEmptyLine();
 
-
      // Создание компоновок:
      QHBoxLayout *createButtonHLayout(QWidget *pwgt1, QWidget *pwgt2);
      QHBoxLayout *createRightPackedHLayout(QWidget *pwgt1);

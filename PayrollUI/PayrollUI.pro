@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,6 +16,7 @@ SOURCES += \
     employeewindow.cpp \
     errorwindow.cpp \
     fileprogress.cpp \
+    logcategories.cpp \
     main.cpp \
     mainwindow.cpp \
     manager.cpp \
@@ -34,6 +36,7 @@ HEADERS += \
     employeewindow.h \
     errorwindow.h \
     fileprogress.h \
+    logcategories.h \
     mainwindow.h \
     manager.h \
     managerwindow.h \
