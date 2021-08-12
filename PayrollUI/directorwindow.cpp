@@ -14,7 +14,7 @@ DirectorWindow::DirectorWindow(QWidget *parent): ReceiverWindow(parent)
     salaryPercentLayout = createPackedHLayout(salaryPercentLabel, salaryPercentValueLabel);
     wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
     allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
-    payFundLayout = createRightPackedHLayout(optionsBox);
+    payFundLayout = createRightPackedHLayout(vacationPayBox);
     minSalaryLayout = createPackedHLayout(minSalaryLabel, minSalaryValueLabel);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);

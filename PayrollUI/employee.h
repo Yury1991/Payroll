@@ -36,6 +36,10 @@ public:
     virtual ushort getCalendarWorkingDays();
     virtual void setCalendarWorkingDays(ushort wDays);
 
+
+    //Отпускные
+     qreal getVacationPay();
+
     //Промежуточная зарплата
     virtual qreal calculateIntermediateSalary();
 
@@ -46,17 +50,18 @@ public:
 private:
     const QString position = "Окладчик"; // должность сотрудника
     QString fullName;                    //ФИО соттрудникаа
-    qreal minSalary;               // минимальный оклад
-    ushort wDays;                // отработанные дни
-    ushort allDays;        // рабочие дни
-    qreal intermediateSalary;       //Промежуточная зарплата(до штрафов, премий, корректировки
-    qreal totalSalary;             // итоговая зарплата
-    qreal penalty;          //Штрафы
-    qreal premium;          //Премия
-    qreal adjustment;       //Корректировка
+    qreal minSalary;                    // минимальный оклад
+    ushort wDays;                       // отработанные дни
+    ushort allDays;                     // рабочие дни
+    qreal vacationPay;                   //отпускные
+    qreal intermediateSalary;            //Промежуточная зарплата(до штрафов, премий, корректировки
+    qreal totalSalary;                   // итоговая зарплата
+    qreal penalty;                      //Штрафы
+    qreal premium;                        //Премия
+    qreal adjustment;                    //Корректировка
 
 
-    bool isPayFund;
+    bool isPayFund;                 //вносится ли 10% процентов в фонд отпускных
 };
 
 #endif // EMPLOYEE_H

@@ -23,13 +23,35 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
     allDaysLabel = createLabel("Рабочие дни:");
     allDaysLine = createEmptyLine();
 
+    wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
+    allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
+
+    daysLayout = createPackedGridLayout(wDaysLayout, allDaysLayout);
+    daysBox = createGroupBox(tr("Дни"), daysLayout);
+
     intermediateSalaryLabel = createLabel("Промежуточная зарплата:");
     intermediateSalaryValueLabel = createLabel("0");
 
+
+    vacationPayLabel = createLabel("Сумма отпускных к вычету:");
+    vacationPayLine = createEmptyLine();
+
     payFundRadio = new QRadioButton("10% в фонд отпускных");
-    optionsLayout = createRightPackedHLayout(payFundRadio);
-  //  optionsLayout->addWidget(payFundRadio);
-    optionsBox = createGroupBox(tr("Доп. условия:"), optionsLayout);
+    payFundLayout = createRightPackedHLayout(payFundRadio);
+    vacationPayLayout = createPackedHLayout(vacationPayLabel, vacationPayLine);
+
+    vacationPayBalanceLabel = createLabel("Отпускных накоплено всего:");
+    vacationPayBalanceLine = createEmptyLine();
+    vacationPayBalanceLayout = createPackedHLayout(vacationPayBalanceLabel, vacationPayBalanceLine);
+    withdrawVacationPayLabel = createLabel("Частичное снятие отпускных:");
+    withdrawVacationPayLine = createEmptyLine();
+    withdrawVacationPayLayout = createPackedHLayout(withdrawVacationPayLabel, withdrawVacationPayLine);
+    payLayout = createPackedGridLayout(payFundLayout, vacationPayLayout, vacationPayBalanceLayout, withdrawVacationPayLayout);
+
+
+    vacationPayBox = createGroupBox(tr("Отпускные"), payLayout);
+
+
 
     penaltyLabel = createLabel("Штраф:");
     penaltyLine = createEmptyLine();
@@ -39,6 +61,17 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
 
     adjustmentLabel = createLabel("Корректировка:");
     adjustmentLine = createEmptyLine();
+
+    penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
+    premiumLayout = createPackedHLayout(premiumLabel, premiumLine);
+    adjustmentLayout = createPackedHLayout(adjustmentLabel, adjustmentLine);
+    optionsLayout = createPackedGridLayout(penaltyLayout, premiumLayout, adjustmentLayout);
+
+    optionsBox = createGroupBox(tr("Доп. условия"), optionsLayout);
+    optionsGroupLayout = createPackedBoxHLayout(optionsBox);
+
+    noteLabel = createLabel("Примечание:");
+    noteLine = createEmptyLine();
 
     totalSalaryLabel = createLabel("Итоговая зп:");
     totalSalaryLine = createEmptyLine();
@@ -51,20 +84,21 @@ EmployeeWindow::EmployeeWindow(QWidget *parent) :  QMainWindow(parent)
     dateLayout = createPackedHLayout(dateLabel, dateValueLabel);
     fullNameLayout = createPackedHLayout(fullNameLabel, fullNameLine);
     salaryLayout = createPackedHLayout(salaryLabel, salaryLine);
-    wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
-    allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
-    payFundLayout = createRightPackedHLayout(optionsBox);
+
+    vacationGroupLayout = createPackedBoxHLayout(vacationPayBox);
+    daysGroupLayout = createPackedBoxHLayout(daysBox);
+
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
-    penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
-    premiumLayout = createPackedHLayout(premiumLabel, premiumLine);
-    adjustmentLayout = createPackedHLayout(adjustmentLabel, adjustmentLine);
+
+    noteLayout = createPackedHLayout(noteLabel, noteLine);
+    spaceLayout = createEmptyHLayout();
     totalSalaryLayout = createPackedHLayout(totalSalaryLabel, totalSalaryLine);
     calculateLayout = createButtonHLayout(calculateButton, writeButton);
     backLayout= createLeftPackedHLayout(backButton);
 
-    employeeLayouts = {dateLayout, fullNameLayout, salaryLayout, wDaysLayout, allDaysLayout,
-                       payFundLayout, intermediateSalaryLayout, penaltyLayout, premiumLayout, adjustmentLayout,
-                       totalSalaryLayout, calculateLayout, backLayout};
+    employeeLayouts = {dateLayout, fullNameLayout, salaryLayout, daysGroupLayout,
+                       vacationGroupLayout, intermediateSalaryLayout, optionsGroupLayout,
+                       noteLayout, spaceLayout, totalSalaryLayout, calculateLayout, backLayout};
 
     employeeMainLayout = createMainLayout(employeeLayouts);    
     employeeWidget = createWidget(employeeMainLayout);
@@ -120,11 +154,18 @@ QLabel *EmployeeWindow::createEmptyRightLabel(){
 
 QString EmployeeWindow::createDate(){
     QDate date = QDate::currentDate();
-    strDate = date.toString();
+    strDate = date.toString("dd.MM.yyyy");
     return strDate;
 }
 
 //Метод для создания слоев:
+
+QHBoxLayout *EmployeeWindow::createEmptyHLayout(){
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    QLabel *label = new QLabel(" ");
+    hlayout->addWidget(label);
+    return hlayout;
+}
 QHBoxLayout *EmployeeWindow::createRightPackedHLayout(QWidget *pwgt1){
     QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->addWidget(pwgt1, 0, Qt::AlignRight);
@@ -156,6 +197,11 @@ QHBoxLayout *EmployeeWindow::createRightPackedHLayout(QWidget *pwgt1, QWidget *p
     hlayout->addWidget(pwgt2, 0, Qt::AlignRight);
     return hlayout;
 }
+QHBoxLayout *EmployeeWindow::createPackedBoxHLayout(QWidget *pwgt){
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(pwgt);
+    return hlayout;
+}
 
 QHBoxLayout *EmployeeWindow::createButtonHLayout(QWidget *pwgt1, QWidget *pwgt2){
     QHBoxLayout *hlayout = new QHBoxLayout;
@@ -164,6 +210,30 @@ QHBoxLayout *EmployeeWindow::createButtonHLayout(QWidget *pwgt1, QWidget *pwgt2)
     return hlayout;
 }
 
+QGridLayout *EmployeeWindow::createPackedGridLayout(QHBoxLayout *hlayout1, QHBoxLayout *hlayout2){
+    QGridLayout *gLayout = new QGridLayout;
+    gLayout->addLayout(hlayout1, 0, 0);
+    gLayout->addLayout(hlayout2, 1, 0);
+    return gLayout;
+
+}
+
+QGridLayout *EmployeeWindow::createPackedGridLayout(QHBoxLayout *hlayout1, QHBoxLayout *hlayout2, QHBoxLayout *hlayout3){
+    QGridLayout *gLayout = new QGridLayout;
+    gLayout->addLayout(hlayout1, 0, 0);
+    gLayout->addLayout(hlayout2, 1, 0);
+    gLayout->addLayout(hlayout3, 3, 0);
+    return gLayout;
+
+}
+QGridLayout *EmployeeWindow::createPackedGridLayout(QHBoxLayout *hlayout1, QHBoxLayout *hlayout2, QHBoxLayout *hlayout3, QHBoxLayout *hlayout4){
+    QGridLayout *gLayout = new QGridLayout;
+    gLayout->addLayout(hlayout1, 0, 0);
+    gLayout->addLayout(hlayout2, 1, 0);
+    gLayout->addLayout(hlayout3, 3, 0);
+    gLayout->addLayout(hlayout4, 4, 0);
+    return gLayout;
+}
 QGridLayout *EmployeeWindow::createMainLayout(QVector<QHBoxLayout*> layouts){
     QGridLayout *mainLayout = new QGridLayout;
     for(int i = 0; i < layouts.size(); i++){
@@ -185,11 +255,18 @@ QGroupBox *EmployeeWindow::createGroupBox(QString const &str, QHBoxLayout *hlayo
     return gb;
 }
 
+QGroupBox *EmployeeWindow::createGroupBox(QString const &str, QGridLayout *glayout){
+    QGroupBox *gb = new QGroupBox(str);
+    gb->setAlignment(Qt::AlignCenter);
+    gb->setLayout(glayout);
+    return gb;
+}
+
 //Создание виджета:
 QWidget *EmployeeWindow::createWidget(QGridLayout *layout){
     QWidget *pwgt = new QWidget;
     pwgt->setLayout(layout);
-    pwgt->setMinimumSize(450, 400);
+    pwgt->setMinimumSize(550, 500);
     pwgt->setContentsMargins(5, 5, 5, 5);
     return pwgt;
 }
@@ -222,6 +299,8 @@ void EmployeeWindow::slotCalculateButtonClicked(){
                                 payFundRadio->isChecked(), getValue(penaltyLine), getValue(premiumLine), getValue(adjustmentLine));
         QString intermediateSalary = QString::number(employee->calculateIntermediateSalary());
         QString totalSalary = QString::number(employee->calculateTotalSalary());
+        QString vacationPay = QString::number(employee->getVacationPay());
+        vacationPayLine->setText(vacationPay);
         intermediateSalaryValueLabel->setText(intermediateSalary);
         totalSalaryLine->setText(totalSalary);
         totalSalaryLine->displayText();

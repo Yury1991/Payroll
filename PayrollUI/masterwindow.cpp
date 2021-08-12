@@ -16,7 +16,7 @@ MasterWindow::MasterWindow()
     fullNameLayout = createPackedHLayout(fullNameLabel, fullNameLine);
     profitLayout = createRightPackedHLayout(minProfitBox);
     masterProdLayout = createPackedHLayout(masterProdLabel, masterProdLine);
-    payFundLayout = createRightPackedHLayout(optionsBox);
+    payFundLayout = createRightPackedHLayout(vacationPayBox);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
     premiumLayout = createPackedHLayout(premiumLabel, premiumLine);

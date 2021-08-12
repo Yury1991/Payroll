@@ -27,7 +27,8 @@ SOURCES += \
     receiver.cpp \
     receiverwindow.cpp \
     simpledialogwindow.cpp \
-    staffwindow.cpp
+    staffwindow.cpp \
+    viewstaffwindow.cpp
 
 HEADERS += \
     director.h \
@@ -46,7 +47,8 @@ HEADERS += \
     receiver.h \
     receiverwindow.h \
     simpledialogwindow.h \
-    staffwindow.h
+    staffwindow.h \
+    viewstaffwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

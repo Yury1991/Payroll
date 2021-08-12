@@ -26,9 +26,9 @@ ManagerWindow::ManagerWindow(QWidget*parent): EmployeeWindow(parent)
     wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
     allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
     payFundRadio = new QRadioButton("10% в фонд отпускных");
-    optionsLayout = createRightPackedHLayout(payFundRadio);
-    optionsBox = createGroupBox(tr("Доп. условия:"), optionsLayout);
-    payFundLayout = createRightPackedHLayout(optionsBox);
+    vacationGroupLayout = createRightPackedHLayout(payFundRadio);
+    vacationPayBox = createGroupBox(tr("Доп. условия:"), vacationGroupLayout);
+    payFundLayout = createRightPackedHLayout(vacationPayBox);
     percentButtonsLayout = createRightPackedHLayout(rbFourPercent, rbSevenPercent);
     gbPercent = createGroupBox(tr("Процент менеджера:"), percentButtonsLayout);
     sellPercentLayout = createRightPackedHLayout(gbPercent);

@@ -14,10 +14,12 @@ public:
     //Методы
     QPushButton* createButton(const QString &str); //создание кнопки
 public slots:
+    void slotViewButtonClicked();
     virtual void slotCalculateButtonClicked();
     void slotSettingsButtonClicked();
 private:
     QPushButton *calculateButton;   //кнопка рассчитать
+    QPushButton *viewButton;        //кнопка просмотра
     QPushButton *settingsButton;     //кнопка параметры
     QPushButton *exitButton;        //кнопка выхода
 };

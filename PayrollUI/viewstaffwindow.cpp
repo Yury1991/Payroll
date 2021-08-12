@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "staffwindow.h"
+#include "viewstaffwindow.h"
 #include "receiverwindow.h"
 #include "employeewindow.h"
 #include "directorwindow.h"
@@ -7,7 +7,7 @@
 #include "masterwindow.h"
 
 
-StaffWindow::StaffWindow()
+ViewStaffWindow::ViewStaffWindow()
 {
     employeeButton = createButton("Окладчик");
     receiverButton = createButton("Приемщики");
@@ -15,12 +15,12 @@ StaffWindow::StaffWindow()
     masterButton = createButton("Мастера");
     managerButton = createButton("Менеджеры");
     backButton = createButton("Назад");
-    connect(employeeButton, &QPushButton::clicked, this, &StaffWindow::slotEmployeeButtonClicked);
-    connect(receiverButton , &QPushButton::clicked, this, &StaffWindow::slotReceiverButtonClicked);
-    connect(directorButton, &QPushButton::clicked, this, &StaffWindow::slotDirectorButtonClicked);
-    connect(masterButton, &QPushButton::clicked, this, &StaffWindow::slotMasterButtonClicked);
-    connect(managerButton, &QPushButton::clicked, this, &StaffWindow::slotManagerButtonClicked);
-    connect(backButton, &QPushButton::clicked, this, &StaffWindow::slotBackButtonClicked);
+    connect(employeeButton, &QPushButton::clicked, this, &ViewStaffWindow::slotEmployeeButtonClicked);
+    connect(receiverButton , &QPushButton::clicked, this, &ViewStaffWindow::slotReceiverButtonClicked);
+    connect(directorButton, &QPushButton::clicked, this, &ViewStaffWindow::slotDirectorButtonClicked);
+    connect(masterButton, &QPushButton::clicked, this, &ViewStaffWindow::slotMasterButtonClicked);
+    connect(managerButton, &QPushButton::clicked, this, &ViewStaffWindow::slotManagerButtonClicked);
+    connect(backButton, &QPushButton::clicked, this, &ViewStaffWindow::slotBackButtonClicked);
 
 
     QVBoxLayout *vlayout = new QVBoxLayout;
@@ -32,51 +32,51 @@ StaffWindow::StaffWindow()
     vlayout->addWidget(managerButton);
     vlayout->addWidget(backButton);
     setLayout(vlayout);
-    setWindowTitle("Окно персонала для расчета");
+    setWindowTitle("Окно персонала для просмотра");
     setMinimumSize(450, 300);
 }
 
-QPushButton* StaffWindow::createButton(const QString &str){
+QPushButton* ViewStaffWindow::createButton(const QString &str){
     QPushButton *pb = new QPushButton(str);
     pb->setMinimumSize(40, 40);
     return pb;
 }
 
-void StaffWindow::slotEmployeeButtonClicked(){
+void ViewStaffWindow::slotEmployeeButtonClicked(){
     this->close();
     EmployeeWindow *employeeWindow = new EmployeeWindow();
     employeeWindow->show();
 }
 
-void StaffWindow::slotReceiverButtonClicked(){
+void ViewStaffWindow::slotReceiverButtonClicked(){
     this->close();
     ReceiverWindow *receiverWindow = new ReceiverWindow();
     receiverWindow->show();
 }
 
-void StaffWindow::slotDirectorButtonClicked(){
+void ViewStaffWindow::slotDirectorButtonClicked(){
     this->close();
     DirectorWindow *directorWindow = new DirectorWindow();
     directorWindow->show();
 }
-void StaffWindow::slotMasterButtonClicked(){
+void ViewStaffWindow::slotMasterButtonClicked(){
     this->close();
     MasterWindow *masterWindow = new MasterWindow();
     masterWindow->show();
 }
 
-void StaffWindow::slotManagerButtonClicked(){
+void ViewStaffWindow::slotManagerButtonClicked(){
     this->close();
     ManagerWindow *managerWindow = new ManagerWindow();
     managerWindow->show();
 }
-void StaffWindow::slotBackButtonClicked(){
+void ViewStaffWindow::slotBackButtonClicked(){
     this->close();
     MainWindow *mainWindow = new MainWindow();
     mainWindow->show();
 }
 
 
-StaffWindow::~StaffWindow(){
+ViewStaffWindow::~ViewStaffWindow(){
 
 }

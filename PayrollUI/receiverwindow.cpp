@@ -21,7 +21,7 @@ ReceiverWindow::ReceiverWindow(QWidget*parent)
     salaryPercentLayout = createPackedHLayout(salaryPercentLabel, salaryPercentValueLabel);
     wDaysLayout = createPackedHLayout(wDaysLabel, wDaysLine);
     allDaysLayout = createPackedHLayout(allDaysLabel, allDaysLine);
-    payFundLayout = createRightPackedHLayout(optionsBox);
+    payFundLayout = createRightPackedHLayout(vacationPayBox);
     intermediateSalaryLayout = createPackedHLayout(intermediateSalaryLabel, intermediateSalaryValueLabel);
     penaltyLayout = createPackedHLayout(penaltyLabel, penaltyLine);
     premiumLayout = createPackedHLayout(premiumLabel, premiumLine);

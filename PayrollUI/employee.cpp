@@ -8,6 +8,7 @@ Employee::Employee()
     allDays = 0;    // календарные рабочие дни
     totalSalary = 0;             // итоговая зарплата
     isPayFund = false;
+    vacationPay = 0;
 }
 
 Employee::Employee(QString fullName, qreal minSalary, ushort workingDays, ushort calendarWorkingDays,
@@ -68,13 +69,18 @@ qreal Employee::calculateIntermediateSalary(){
         intermediateSalary = (minSalary * wDays)/allDays;
     }
     if(isPayFund == true){
-        intermediateSalary -=  intermediateSalary* 0.1 ;
+        vacationPay = intermediateSalary* 0.1;
+        intermediateSalary -= vacationPay;
         return intermediateSalary;
     }
     else{
         return intermediateSalary;
     }
 }
+qreal Employee::getVacationPay(){
+    return vacationPay;
+}
+
 
 qreal Employee::calculateTotalSalary(){
     totalSalary = (intermediateSalary - penalty + premium + adjustment);
